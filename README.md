@@ -1,5 +1,24 @@
 <h1 align="center">Speaker Diarization Using OpenAI Whisper - HPC Fork by @adamelkholyy</h1>
 
+
+# HPC Fork 
+For use on University of Exeter ISCA Server.
+
+   
+Building the environment using conda:  
+```conda env create -f env.yaml```  
+
+
+Building the environment using mamba:  
+```mamba env create -f env.yaml```  
+
+
+HPC Compatability changelog
+- Edited requirements.txt to add all dependencies 
+- Included Perl and C++ build tools in env.yaml 
+- ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors
+
+# Original README
 <p align="center">
   Credit to @MahmoudAshraf97
   <a href="https://github.com/MahmoudAshraf97/whisper-diarization/stargazers">
@@ -24,26 +43,6 @@
  
 </p>
 
-
-
-# HPC Fork 
-For use on University of Exeter ISCA Server.
-
-   
-Building the environment using conda:  
-```conda env create -f env.yaml```  
-
-
-Building the environment using mamba:  
-```mamba env create -f env.yaml```  
-
-
-HPC Compatability changelog
-- Edited requirements.txt to add all dependencies 
-- Included Perl and C++ build tools in env.yaml 
-- ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors
-
-# Original Repo
 Speaker Diarization pipeline based on OpenAI Whisper
 I'd like to thank [@m-bain](https://github.com/m-bain) for Batched Whisper Inference, [@mu4farooqi](https://github.com/mu4farooqi) for punctuation realignment algorithm
 
