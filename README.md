@@ -26,8 +26,10 @@
 
 
 
-## HPC Fork 
-For use on University of Exeter ISCA Server.  
+# HPC Fork 
+For use on University of Exeter ISCA Server.
+
+   
 Building the environment using conda:  
 ```conda env create -f env.yaml```  
 
@@ -42,8 +44,6 @@ HPC Compatability changelog
 - ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors
 
 # Original Repo
-
-# 
 Speaker Diarization pipeline based on OpenAI Whisper
 I'd like to thank [@m-bain](https://github.com/m-bain) for Batched Whisper Inference, [@mu4farooqi](https://github.com/mu4farooqi) for punctuation realignment algorithm
 
