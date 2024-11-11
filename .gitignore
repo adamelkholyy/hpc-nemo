@@ -1,5 +1,6 @@
 .git/
 __pycache__/
+audio/
 .venv/
 *.srt
 *.txt
