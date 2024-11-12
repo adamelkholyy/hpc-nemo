@@ -1,0 +1,23 @@
+usage: conda [-h] [--no-plugins] [-V] COMMAND ...
+conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'build', 'convert', 'debug', 'develop', 'doctor', 'index', 'inspect', 'metapackage', 'render', 'skeleton', 'server', 'env', 'verify', 'token', 'pack', 'repo', 'content-trust')
+[NeMo W 2024-11-12 14:51:40 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/core/io.py:43: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      torchaudio.set_audio_backend("soundfile")
+    
+[NeMo W 2024-11-12 14:51:44 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:43: UserWarning: torchaudio._backend.get_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      backend = torchaudio.get_audio_backend()
+    
+INFO:speechbrain.utils.quirks:Applied quirks (see `speechbrain.utils.quirks`): [allow_tf32, disable_jit_profiling]
+INFO:speechbrain.utils.quirks:Excluded quirks specified by the `SB_DISABLE_QUIRKS` environment (comma-separated list): []
+[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:45: UserWarning: Module 'speechbrain.pretrained' was deprecated, redirecting to 'speechbrain.inference'. Please update your script. This is a change from SpeechBrain 1.0. See: https://github.com/speechbrain/speechbrain/releases/tag/v1.0.0
+      from speechbrain.pretrained import (
+    
+[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:53: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      torchaudio.set_audio_backend(backend)
+    
+[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/tasks/segmentation/mixins.py:37: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+      from torchaudio.backend.common import AudioMetaData
+    
+Lightning automatically upgraded your loaded checkpoint from v1.5.4 to v2.4.0. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../home/ae553/.cache/torch/whisperx-vad-segmentation.bin`
+[NeMo W 2024-11-12 15:04:33 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/huggingface_hub/file_download.py:797: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
+      warnings.warn(
+    

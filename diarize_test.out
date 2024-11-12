@@ -1,0 +1,9 @@
+==================================================================================
+Job started on
+Tue 12 Nov 14:51:10 UTC 2024
+==================================================================================
+Loading modules...
+/gpfs/ts0/shared/software/FFmpeg/4.2.2-GCCcore-9.3.0/bin/ffmpeg
+Modules loaded successfully. Conda environment initialised.
+==================================================================================
+Executing Python script...

@@ -1,8 +1,7 @@
 #!/bin/bash
 #SBATCH --export=ALL       # export all environment variables to the batch job.
-#SBATCH --partition volta       # submit to the gpu queue
-#SBATCH -D /lustre/projects/Research_Project-T116269/nemo # set working directory to . # research project to submit under
-#SBATCH -A Research_Project-T116269
+#SBATCH --partition gpu       # submit to the gpu queue
+#SBATCH -D /lustre/projects/Research_Project-T116269/nemo # set working directory to .
 #SBATCH --mail-type=ALL # send email at job completion
 #SBATCH --mail-user=a.el-kholy@exeter.ac.uk # email address
 #SBATCH --time=03:00:00    # Maximum wall time for the job.
@@ -16,27 +15,31 @@
 
 ## print start date and time
 echo ==================================================================================
-echo Job started on:
+echo Job started on
 date -u
 current_date=$(date)
 echo ==================================================================================
-echo -n "This script is running on "
-Hostname
-echo ==================================================================================
 
-## run script
+## load modules and initialise conda
+echo Loading modules...
+module load FFmpeg/4.2.2-GCCcore-9.3.0
 module load Anaconda3/2023.07-2
-cd /lustre/projects/Research_Project-T116269/nemo
-
+which ffmpeg
 conda activate nemo
+cd /lustre/projects/Research_Project-T116269/nemo
+echo Modules loaded successfully. Conda environment initialised.
+
+echo ==================================================================================
+## execute python
+echo Executing Python script...
 python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language English
+echo Python script executed successfully
 
 echo ==================================================================================
 ## print end date and time
-echo Job complete
-echo Job started on:
+echo Job was started on
 echo "$current_date"
-echo Job ended on:
+echo Job ended on
 date -u
 echo ==================================================================================
-echo Job finished succesfully.
+echo Job finished succesfully
