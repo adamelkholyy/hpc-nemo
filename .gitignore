@@ -5,7 +5,9 @@ audio/
 *.srt
 *.txt
 *.wav
+*.docx
 *.mp3
 *.m4a
 !requirements.txt
+!wer_calculations/
 
