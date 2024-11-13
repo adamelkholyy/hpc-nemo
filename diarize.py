@@ -89,6 +89,20 @@ parser.add_argument(
 args = parser.parse_args()
 language = process_language_arg(args.language, args.model_name)
 
+# cuda debug info
+logging.info(f" torch.version.cuda: {torch.version.cuda}")
+logging.info(f" torch.cuda.is_available(): {torch.cuda.is_available()}")
+
+if torch.cuda.is_available():
+	logging.info(f" first cuda device: {torch.cuda.get_device_name(0)}")  # prints the name of the first CUDA device	
+	logging.info(f" device count: {torch.cuda.device_count()}")    # number of available CUDA devices
+	logging.info(f" using: cuda")
+else:
+	logging.info(f" Cuda unavailable... using {args.device}")
+	logging.info(f" Exiting script")
+	exit()
+
+
 if args.stemming:
     # Isolate vocals from the rest of the audio
 
