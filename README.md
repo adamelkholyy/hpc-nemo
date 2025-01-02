@@ -16,7 +16,8 @@ Building the environment using mamba:
 HPC Compatability changelog
 - Edited requirements.txt to add all dependencies 
 - Included Perl and C++ build tools in env.yaml 
-- ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors
+- ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors       
+- Added Word Error Rate calculations   
 - Added SBATCH scripts (```diarize_test.sh```) for running jobs with slurm
 - Added errors and logging output for HPC GPUs    
 
