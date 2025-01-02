@@ -1,23 +1,21 @@
+
+Currently Loaded Modules:
+  1) slurm/23.02.6               (S)  12) libpng/1.6.37-GCCcore-9.3.0
+  2) lmod                             13) util-linux/2.35-GCCcore-9.3.0
+  3) GCCcore/9.3.0                    14) xorg-macros/1.19.2-GCCcore-9.3.0
+  4) NASM/2.14.02-GCCcore-9.3.0       15) libpciaccess/0.16-GCCcore-9.3.0
+  5) zlib/1.2.11-GCCcore-9.3.0        16) X11/20200222-GCCcore-9.3.0
+  6) bzip2/1.0.8-GCCcore-9.3.0        17) freetype/2.10.1-GCCcore-9.3.0
+  7) x264/20191217-GCCcore-9.3.0      18) fontconfig/2.13.92-GCCcore-9.3.0
+  8) ncurses/6.2-GCCcore-9.3.0        19) FriBidi/1.0.9-GCCcore-9.3.0
+  9) LAME/3.100-GCCcore-9.3.0         20) FFmpeg/4.2.2-GCCcore-9.3.0
+ 10) x265/3.3-GCCcore-9.3.0           21) Anaconda3/2023.07-2
+ 11) expat/2.2.9-GCCcore-9.3.0        22) nvidia-cuda/12.1.1
+
+  Where:
+   S:  Module is Sticky, requires --force to unload or purge
+
+ 
+
 usage: conda [-h] [--no-plugins] [-V] COMMAND ...
-conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'build', 'convert', 'debug', 'develop', 'doctor', 'index', 'inspect', 'metapackage', 'render', 'skeleton', 'server', 'env', 'verify', 'token', 'pack', 'repo', 'content-trust')
-[NeMo W 2024-11-12 14:51:40 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/core/io.py:43: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
-      torchaudio.set_audio_backend("soundfile")
-    
-[NeMo W 2024-11-12 14:51:44 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:43: UserWarning: torchaudio._backend.get_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
-      backend = torchaudio.get_audio_backend()
-    
-INFO:speechbrain.utils.quirks:Applied quirks (see `speechbrain.utils.quirks`): [allow_tf32, disable_jit_profiling]
-INFO:speechbrain.utils.quirks:Excluded quirks specified by the `SB_DISABLE_QUIRKS` environment (comma-separated list): []
-[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:45: UserWarning: Module 'speechbrain.pretrained' was deprecated, redirecting to 'speechbrain.inference'. Please update your script. This is a change from SpeechBrain 1.0. See: https://github.com/speechbrain/speechbrain/releases/tag/v1.0.0
-      from speechbrain.pretrained import (
-    
-[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:53: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
-      torchaudio.set_audio_backend(backend)
-    
-[NeMo W 2024-11-12 14:51:45 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/tasks/segmentation/mixins.py:37: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
-      from torchaudio.backend.common import AudioMetaData
-    
-Lightning automatically upgraded your loaded checkpoint from v1.5.4 to v2.4.0. To apply the upgrade to your files permanently, run `python -m pytorch_lightning.utilities.upgrade_checkpoint ../../../home/ae553/.cache/torch/whisperx-vad-segmentation.bin`
-[NeMo W 2024-11-12 15:04:33 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/huggingface_hub/file_download.py:797: FutureWarning: `resume_download` is deprecated and will be removed in version 1.0.0. Downloads always resume when possible. If you want to force a new download, use `force_download=True`.
-      warnings.warn(
-    
+conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'build', 'convert', 'debug', 'develop', 'doctor', 'index', 'inspect', 'metapackage', 'render', 'skeleton', 'server', 'pack', 'verify', 'token', 'content-trust', 'env', 'repo')

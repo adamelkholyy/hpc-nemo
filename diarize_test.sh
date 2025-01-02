@@ -18,28 +18,43 @@ echo ===========================================================================
 echo Job started on
 date -u
 current_date=$(date)
-echo ==================================================================================
 
-## load modules and initialise conda
-echo Loading modules...
+
+## load modules and initialise conda env
+echo ==================================================================================
+echo Loading modules....
+
 module load FFmpeg/4.2.2-GCCcore-9.3.0
 module load Anaconda3/2023.07-2
-which ffmpeg
+module load nvidia-cuda/12.1.1
+module list
+conda init
 conda activate nemo
 cd /lustre/projects/Research_Project-T116269/nemo
-echo Modules loaded successfully. Conda environment initialised.
 
+echo Modules loaded. Conda environment initialised successfully
+
+
+## check cuda has loaded properly
+echo =================================================================================
+echo Verifying cuda installation...
+nvidia-smi
+nvcc --version
+lspci | grep -i nvidia
+
+
+## execute python script
 echo ==================================================================================
-## execute python
 echo Executing Python script...
-python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language English
+python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language en
 echo Python script executed successfully
 
+
+## output timing info 
 echo ==================================================================================
-## print end date and time
 echo Job was started on
 echo "$current_date"
 echo Job ended on
 date -u
 echo ==================================================================================
-echo Job finished succesfully
+echo End of script - job finished successfully

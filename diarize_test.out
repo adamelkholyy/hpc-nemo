@@ -1,9 +1,33 @@
 ==================================================================================
 Job started on
-Tue 12 Nov 14:51:10 UTC 2024
+Wed 13 Nov 11:45:38 UTC 2024
 ==================================================================================
-Loading modules...
-/gpfs/ts0/shared/software/FFmpeg/4.2.2-GCCcore-9.3.0/bin/ffmpeg
-Modules loaded successfully. Conda environment initialised.
+Loading modules....
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/condabin/conda
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/conda
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/conda-env
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/activate
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/deactivate
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/profile.d/conda.sh
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/fish/conf.d/conda.fish
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/shell/condabin/Conda.psm1
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/shell/condabin/conda-hook.ps1
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/lib/python3.11/site-packages/xontrib/conda.xsh
+no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/profile.d/conda.csh
+modified      /lustre/home/ae553/.bashrc
+
+==> For changes to take effect, close and re-open your current shell. <==
+
+Modules loaded. Conda environment initialised successfully
+=================================================================================
+Verifying cuda installation...
+No devices were found
+nvcc: NVIDIA (R) Cuda compiler driver
+Copyright (c) 2005-2023 NVIDIA Corporation
+Built on Mon_Apr__3_17:16:06_PDT_2023
+Cuda compilation tools, release 12.1, V12.1.105
+Build cuda_12.1.r12.1/compiler.32688072_0
+65:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
+b1:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
 ==================================================================================
 Executing Python script...
