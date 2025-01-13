@@ -27,22 +27,28 @@ echo Loading modules....
 module load FFmpeg/4.2.2-GCCcore-9.3.0
 module load Anaconda3/2023.07-2
 module load nvidia-cuda/12.1.1
-module list
-conda init
+module load libdrm/2.4.115-GCCcore-12.3.0
+module list >> diarize_test.out
 conda activate nemo
+conda info --env
 cd /lustre/projects/Research_Project-T116269/nemo
 
 echo Modules loaded. Conda environment initialised successfully
 
-
+## nvidia driver version 560.35.03
 ## check cuda has loaded properly
 echo =================================================================================
 echo Verifying cuda installation...
+echo nvidia-smi
 nvidia-smi
+echo nvcc --version
 nvcc --version
+echo lspci
 lspci | grep -i nvidia
 
 
+echo modinfo nvidia
+modinfo nvidia
 ## execute python script
 echo ==================================================================================
 echo Executing Python script...

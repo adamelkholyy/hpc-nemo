@@ -1,33 +1,113 @@
 ==================================================================================
 Job started on
-Wed 13 Nov 11:45:38 UTC 2024
+Fri 15 Nov 09:41:13 UTC 2024
 ==================================================================================
 Loading modules....
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/condabin/conda
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/conda
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/conda-env
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/activate
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/bin/deactivate
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/profile.d/conda.sh
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/fish/conf.d/conda.fish
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/shell/condabin/Conda.psm1
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/shell/condabin/conda-hook.ps1
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/lib/python3.11/site-packages/xontrib/conda.xsh
-no change     /gpfs/ts0/shared/software/Anaconda3/2023.07-2/etc/profile.d/conda.csh
-modified      /lustre/home/ae553/.bashrc
-
-==> For changes to take effect, close and re-open your current shell. <==
+# conda environments:
+#
+base                     /gpfs/ts0/shared/software/Anaconda3/2023.07-2
+nemo                  *  /lustre/home/ae553/.conda/envs/nemo
 
 Modules loaded. Conda environment initialised successfully
 =================================================================================
 Verifying cuda installation...
+nvidia-smi
 No devices were found
+nvcc --version
 nvcc: NVIDIA (R) Cuda compiler driver
 Copyright (c) 2005-2023 NVIDIA Corporation
 Built on Mon_Apr__3_17:16:06_PDT_2023
 Cuda compilation tools, release 12.1, V12.1.105
 Build cuda_12.1.r12.1/compiler.32688072_0
+lspci
 65:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
 b1:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
+modinfo nvidia
+filename:       /lib/modules/5.14.0-427.33.1.el9_4.x86_64/extra/nvidia.ko.xz
+alias:          char-major-195-*
+version:        560.35.03
+supported:      external
+license:        NVIDIA
+firmware:       nvidia/560.35.03/gsp_tu10x.bin
+firmware:       nvidia/560.35.03/gsp_ga10x.bin
+rhelversion:    9.4
+srcversion:     9EE4844403AEC3E4471DF0E
+alias:          pci:v000010DEd*sv*sd*bc06sc80i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc02i00*
+alias:          pci:v000010DEd*sv*sd*bc03sc00i00*
+depends:        drm
+retpoline:      Y
+name:           nvidia
+vermagic:       5.14.0-427.33.1.el9_4.x86_64 SMP preempt mod_unload modversions 
+sig_id:         PKCS#7
+signer:         DKMS module signing key
+sig_key:        30:BE:1B:97:3B:68:11:4F:A1:17:10:1C:0F:DA:B1:A4:9F:A5:EF:AC
+sig_hashalgo:   sha512
+signature:      9C:70:90:1C:0D:51:26:54:28:AE:DD:17:6A:2C:F4:D7:53:9B:F9:98:
+		8C:42:00:5D:18:C3:E0:43:EA:27:C5:0C:C8:16:94:AA:17:38:34:7B:
+		78:5E:4A:30:DB:0D:7D:56:F4:5C:8A:AC:FC:B5:4F:7A:C2:E8:46:E6:
+		2E:13:7D:5A:48:3A:81:F1:25:2B:3E:25:37:88:91:4F:81:5C:10:54:
+		1B:AE:27:D3:37:CE:46:C2:E8:BA:FF:2D:CB:BC:1A:E5:19:CD:2E:65:
+		BE:1F:32:19:87:2F:8E:3F:5F:9A:C0:9B:F6:18:CE:BD:EB:7B:77:C8:
+		F9:AA:4E:9E:65:3E:DF:9F:D8:8A:8C:B4:B7:EF:01:18:CA:F1:33:51:
+		34:3A:31:4F:03:FD:F1:22:10:B2:A5:9E:46:9D:59:B8:09:04:B7:A0:
+		EB:DF:C3:DA:2A:66:93:0A:E8:65:3A:CC:A9:59:D1:1C:51:D9:CF:C2:
+		E2:77:A4:23:C8:11:9E:6C:F0:6E:C8:B8:F1:D6:3E:DC:BF:AD:DC:0E:
+		32:B0:99:6A:93:21:75:31:18:CE:D5:4C:93:70:4C:5A:96:F5:2F:5A:
+		E5:7B:9E:A2:CB:49:A8:66:8B:E7:19:98:B3:14:26:9D:6C:C0:3C:F7:
+		F5:CB:D3:3E:19:41:FD:91:3D:C8:E2:8F:45:F2:26:20
+parm:           NvSwitchRegDwords:NvSwitch regkey (charp)
+parm:           NvSwitchBlacklist:NvSwitchBlacklist=uuid[,uuid...] (charp)
+parm:           NVreg_ResmanDebugLevel:int
+parm:           NVreg_RmLogonRC:int
+parm:           NVreg_ModifyDeviceFiles:int
+parm:           NVreg_DeviceFileUID:int
+parm:           NVreg_DeviceFileGID:int
+parm:           NVreg_DeviceFileMode:int
+parm:           NVreg_InitializeSystemMemoryAllocations:int
+parm:           NVreg_UsePageAttributeTable:int
+parm:           NVreg_EnablePCIeGen3:int
+parm:           NVreg_EnableMSI:int
+parm:           NVreg_TCEBypassMode:int
+parm:           NVreg_EnableStreamMemOPs:int
+parm:           NVreg_RestrictProfilingToAdminUsers:int
+parm:           NVreg_PreserveVideoMemoryAllocations:int
+parm:           NVreg_EnableS0ixPowerManagement:int
+parm:           NVreg_S0ixPowerManagementVideoMemoryThreshold:int
+parm:           NVreg_DynamicPowerManagement:int
+parm:           NVreg_DynamicPowerManagementVideoMemoryThreshold:int
+parm:           NVreg_EnableGpuFirmware:int
+parm:           NVreg_EnableGpuFirmwareLogs:int
+parm:           NVreg_OpenRmEnableUnsupportedGpus:int
+parm:           NVreg_EnableUserNUMAManagement:int
+parm:           NVreg_MemoryPoolSize:int
+parm:           NVreg_KMallocHeapMaxSize:int
+parm:           NVreg_VMallocHeapMaxSize:int
+parm:           NVreg_IgnoreMMIOCheck:int
+parm:           NVreg_NvLinkDisable:int
+parm:           NVreg_EnablePCIERelaxedOrderingMode:int
+parm:           NVreg_RegisterPCIDriver:int
+parm:           NVreg_EnableResizableBar:int
+parm:           NVreg_EnableDbgBreakpoint:int
+parm:           NVreg_EnableNonblockingOpen:int
+parm:           NVreg_RegistryDwords:charp
+parm:           NVreg_RegistryDwordsPerDevice:charp
+parm:           NVreg_RmMsg:charp
+parm:           NVreg_GpuBlacklist:charp
+parm:           NVreg_TemporaryFilePath:charp
+parm:           NVreg_ExcludedGpus:charp
+parm:           NVreg_DmaRemapPeerMmio:int
+parm:           NVreg_RmNvlinkBandwidth:charp
+parm:           NVreg_ImexChannelCount:int
+parm:           NVreg_CreateImexChannel0:int
+parm:           rm_firmware_active:charp
 ==================================================================================
 Executing Python script...
+Python script executed successfully
+==================================================================================
+Job was started on
+Fri 15 Nov 09:41:13 GMT 2024
+Job ended on
+Fri 15 Nov 09:41:51 UTC 2024
+==================================================================================
+End of script - job finished successfully

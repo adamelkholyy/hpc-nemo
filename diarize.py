@@ -97,6 +97,8 @@ if torch.cuda.is_available():
 	logging.info(f" first cuda device: {torch.cuda.get_device_name(0)}")  # prints the name of the first CUDA device	
 	logging.info(f" device count: {torch.cuda.device_count()}")    # number of available CUDA devices
 	logging.info(f" using: cuda")
+	logging.info(f" Exiting script")
+	exit()		
 else:
 	logging.info(f" Cuda unavailable... using {args.device}")
 	logging.info(f" Exiting script")

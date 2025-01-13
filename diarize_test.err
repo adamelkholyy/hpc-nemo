@@ -1,16 +1,33 @@
 
+The following have been reloaded with a version change:
+  1) GCCcore/9.3.0 => GCCcore/12.3.0
+  2) X11/20200222-GCCcore-9.3.0 => X11/20230603-GCCcore-12.3.0
+  3) bzip2/1.0.8-GCCcore-9.3.0 => bzip2/1.0.8-GCCcore-12.3.0
+  4) expat/2.2.9-GCCcore-9.3.0 => expat/2.5.0-GCCcore-12.3.0
+  5) fontconfig/2.13.92-GCCcore-9.3.0 => fontconfig/2.14.2-GCCcore-12.3.0
+  6) freetype/2.10.1-GCCcore-9.3.0 => freetype/2.13.0-GCCcore-12.3.0
+  7) libpciaccess/0.16-GCCcore-9.3.0 => libpciaccess/0.17-GCCcore-12.3.0
+  8) libpng/1.6.37-GCCcore-9.3.0 => libpng/1.6.39-GCCcore-12.3.0
+  9) ncurses/6.2-GCCcore-9.3.0 => ncurses/6.4-GCCcore-12.3.0
+ 10) util-linux/2.35-GCCcore-9.3.0 => util-linux/2.39-GCCcore-12.3.0
+ 11) xorg-macros/1.19.2-GCCcore-9.3.0 => xorg-macros/1.20.0-GCCcore-12.3.0
+ 12) zlib/1.2.11-GCCcore-9.3.0 => zlib/1.2.13-GCCcore-12.3.0
+
+
 Currently Loaded Modules:
-  1) slurm/23.02.6               (S)  12) libpng/1.6.37-GCCcore-9.3.0
-  2) lmod                             13) util-linux/2.35-GCCcore-9.3.0
-  3) GCCcore/9.3.0                    14) xorg-macros/1.19.2-GCCcore-9.3.0
-  4) NASM/2.14.02-GCCcore-9.3.0       15) libpciaccess/0.16-GCCcore-9.3.0
-  5) zlib/1.2.11-GCCcore-9.3.0        16) X11/20200222-GCCcore-9.3.0
-  6) bzip2/1.0.8-GCCcore-9.3.0        17) freetype/2.10.1-GCCcore-9.3.0
-  7) x264/20191217-GCCcore-9.3.0      18) fontconfig/2.13.92-GCCcore-9.3.0
-  8) ncurses/6.2-GCCcore-9.3.0        19) FriBidi/1.0.9-GCCcore-9.3.0
-  9) LAME/3.100-GCCcore-9.3.0         20) FFmpeg/4.2.2-GCCcore-9.3.0
- 10) x265/3.3-GCCcore-9.3.0           21) Anaconda3/2023.07-2
- 11) expat/2.2.9-GCCcore-9.3.0        22) nvidia-cuda/12.1.1
+  1) slurm/23.02.6               (S)  14) expat/2.5.0-GCCcore-12.3.0
+  2) lmod                             15) libpng/1.6.39-GCCcore-12.3.0
+  3) Mamba/23.1.0-4                   16) Brotli/1.0.9-GCCcore-12.3.0
+  4) NASM/2.14.02-GCCcore-9.3.0       17) ncurses/6.4-GCCcore-12.3.0
+  5) x264/20191217-GCCcore-9.3.0      18) util-linux/2.39-GCCcore-12.3.0
+  6) LAME/3.100-GCCcore-9.3.0         19) fontconfig/2.14.2-GCCcore-12.3.0
+  7) x265/3.3-GCCcore-9.3.0           20) freetype/2.13.0-GCCcore-12.3.0
+  8) FriBidi/1.0.9-GCCcore-9.3.0      21) zlib/1.2.13-GCCcore-12.3.0
+  9) FFmpeg/4.2.2-GCCcore-9.3.0       22) xorg-macros/1.20.0-GCCcore-12.3.0
+ 10) Anaconda3/2023.07-2              23) libpciaccess/0.17-GCCcore-12.3.0
+ 11) nvidia-cuda/12.1.1               24) X11/20230603-GCCcore-12.3.0
+ 12) GCCcore/12.3.0                   25) libdrm/2.4.115-GCCcore-12.3.0
+ 13) bzip2/1.0.8-GCCcore-12.3.0
 
   Where:
    S:  Module is Sticky, requires --force to unload or purge
@@ -18,4 +35,25 @@ Currently Loaded Modules:
  
 
 usage: conda [-h] [--no-plugins] [-V] COMMAND ...
-conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'build', 'convert', 'debug', 'develop', 'doctor', 'index', 'inspect', 'metapackage', 'render', 'skeleton', 'server', 'pack', 'verify', 'token', 'content-trust', 'env', 'repo')
+conda: error: argument COMMAND: invalid choice: 'activate' (choose from 'clean', 'compare', 'config', 'create', 'info', 'init', 'install', 'list', 'notices', 'package', 'remove', 'uninstall', 'rename', 'run', 'search', 'update', 'upgrade', 'build', 'convert', 'debug', 'develop', 'doctor', 'index', 'inspect', 'metapackage', 'render', 'skeleton', 'verify', 'env', 'content-trust', 'repo', 'pack', 'server', 'token')
+[NeMo W 2024-11-15 09:41:48 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/core/io.py:43: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      torchaudio.set_audio_backend("soundfile")
+    
+[NeMo W 2024-11-15 09:41:49 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:43: UserWarning: torchaudio._backend.get_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      backend = torchaudio.get_audio_backend()
+    
+INFO:speechbrain.utils.quirks:Applied quirks (see `speechbrain.utils.quirks`): [allow_tf32, disable_jit_profiling]
+INFO:speechbrain.utils.quirks:Excluded quirks specified by the `SB_DISABLE_QUIRKS` environment (comma-separated list): []
+[NeMo W 2024-11-15 09:41:49 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:45: UserWarning: Module 'speechbrain.pretrained' was deprecated, redirecting to 'speechbrain.inference'. Please update your script. This is a change from SpeechBrain 1.0. See: https://github.com/speechbrain/speechbrain/releases/tag/v1.0.0
+      from speechbrain.pretrained import (
+    
+[NeMo W 2024-11-15 09:41:49 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/pipelines/speaker_verification.py:53: UserWarning: torchaudio._backend.set_audio_backend has been deprecated. With dispatcher enabled, this function is no-op. You can remove the function call.
+      torchaudio.set_audio_backend(backend)
+    
+[NeMo W 2024-11-15 09:41:49 nemo_logging:393] /lustre/home/ae553/.local/lib/python3.11/site-packages/pyannote/audio/tasks/segmentation/mixins.py:37: UserWarning: `torchaudio.backend.common.AudioMetaData` has been moved to `torchaudio.AudioMetaData`. Please update the import path.
+      from torchaudio.backend.common import AudioMetaData
+    
+INFO:root: torch.version.cuda: 12.1
+INFO:root: torch.cuda.is_available(): False
+INFO:root: Cuda unavailable... using cpu
+INFO:root: Exiting script
