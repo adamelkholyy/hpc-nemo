@@ -32,8 +32,9 @@ module use PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load Perl/5.36.1-GCCcore-12.3.0
 
-module list >> slurm_modules.txt
-pip freeze >> requirements.txt
+## module list >> slurm_modules.txt
+## pip freeze >> requirements.txt
+
 cd /lustre/projects/Research_Project-T116269/nemo
 
 echo Modules loaded.
@@ -54,13 +55,17 @@ echo Modules loaded.
 
 
 ## execute python script
+start_time=$(date +%s)
 echo ==================================================================================
 echo Executing Python script...
-python cuda_test.py
+## python cuda_test.py
 ## python diarize.py -a audio/audio.mp3
+python diarize.py -a audio/AutHERTS01.mp3
 ## python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language en
 echo Python script executed successfully
 
+end_time=$(date +%s)
+elapsed_time=$((end_time - start_time))
 
 ## output timing info 
 echo ==================================================================================
@@ -69,4 +74,6 @@ echo "$current_date"
 echo Job ended on
 date -u
 echo ==================================================================================
-echo End of script - job finished successfully
+echo "Elapsed time: $elapsed_time seconds"
+echo ==================================================================================
+echo End of script - job finished successfully.
