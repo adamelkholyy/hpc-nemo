@@ -1,31 +1,18 @@
 ==================================================================================
 Job started on
-Thu 30 Jan 09:08:02 UTC 2025
+Thu 30 Jan 11:11:32 UTC 2025
 ==================================================================================
 Loading modules....
 Modules loaded.
-=================================================================================
-Verifying cuda installation...
-nvidia-smi
-No devices were found
-nvcc --version
-nvcc: NVIDIA (R) Cuda compiler driver
-Copyright (c) 2005-2023 NVIDIA Corporation
-Built on Mon_Apr__3_17:16:06_PDT_2023
-Cuda compilation tools, release 12.1, V12.1.105
-Build cuda_12.1.r12.1/compiler.32688072_0
-lspci
-65:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
-b1:00.0 3D controller: NVIDIA Corporation GA100 [A100 PCIe 80GB] (rev a1)
 ==================================================================================
 Executing Python script...
 12.1
-False
+True
 Python script executed successfully
 ==================================================================================
 Job was started on
-Thu 30 Jan 09:08:02 GMT 2025
+Thu 30 Jan 11:11:32 GMT 2025
 Job ended on
-Thu 30 Jan 09:08:22 UTC 2025
+Thu 30 Jan 11:11:55 UTC 2025
 ==================================================================================
 End of script - job finished successfully

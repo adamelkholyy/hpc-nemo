@@ -1,16 +1,19 @@
 #!/bin/bash
-#SBATCH --export=ALL       # export all environment variables to the batch job.
-#SBATCH --partition gpu       # submit to the gpu queue
-#SBATCH -D /lustre/projects/Research_Project-T116269/nemo # set working directory to .
-#SBATCH --mail-type=ALL # send email at job completion
-#SBATCH --mail-user=a.el-kholy@exeter.ac.uk # email address
-#SBATCH --time=03:00:00    # Maximum wall time for the job.
-#SBATCH --account Research_Project-T116269    # research project to submit under. 
-#SBATCH --nodes=1                                  # specify number of nodes.
-#SBATCH --ntasks-per-node=16        # specify number of processors per node
-#SBATCH --mem-per-cpu=1024         # MB memory requested per cpu-core (task)
-#SBATCH --output=diarize_test.out   # submit script's standard-out
-#SBATCH --error=diarize_test.err    # submit script's standard-error
+#SBATCH --export=ALL      				 	# export all environment variables to the batch job.
+#SBATCH --partition gpu      					# submit to the gpu queue
+#SBATCH -D /lustre/projects/Research_Project-T116269/nemo 	# set working directory to .
+#SBATCH --mail-type=ALL						# send email at job completion
+#SBATCH --mail-user=a.el-kholy@exeter.ac.uk 			# email address
+#SBATCH --time=03:00:00    					# maximum wall time for the job.
+#SBATCH --account Research_Project-T116269    			# research project to submit under. 
+
+#SBATCH --nodes=1                                  		# specify number of nodes.
+#SBATCH --ntasks-per-node=16        				# specify number of processors per node
+#SBATCH --gres=gpu:1						# num gpus	
+#SBATCH --mem=4G						# requested memory	
+
+#SBATCH --output=diarize_test.out   				# submit script's standard-out
+#SBATCH --error=diarize_test.err    				# submit script's standard-error
 #SBATCH --job-name=diarize_test
 
 ## print start date and time
@@ -28,25 +31,27 @@ module use /lustre/shared/easybuild/modules/all
 module use PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load Perl/5.36.1-GCCcore-12.3.0
-module list >> diarize_test.out
+
+module list >> slurm_modules.txt
+pip freeze >> requirements.txt
 cd /lustre/projects/Research_Project-T116269/nemo
 
 echo Modules loaded.
 
-## nvidia driver version 560.35.03
-## check cuda has loaded properly
-echo =================================================================================
-echo Verifying cuda installation...
-echo nvidia-smi
-nvidia-smi
-echo nvcc --version
-nvcc --version
-echo lspci
-lspci | grep -i nvidia
 
+## check cuda has loaded properly
+## echo =================================================================================
+## echo Verifying cuda installation...
+## echo nvidia-smi
+## nvidia-smi
+## echo nvcc --version
+## nvcc --version
+## echo lspci
+## lspci | grep -i nvidia
 
 ## echo modinfo nvidia
 ## modinfo nvidia
+
 
 ## execute python script
 echo ==================================================================================
