@@ -24,16 +24,14 @@ current_date=$(date)
 echo ==================================================================================
 echo Loading modules....
 
-module load FFmpeg/4.2.2-GCCcore-9.3.0
-module load Anaconda3/2023.07-2
-module load nvidia-cuda/12.1.1
-module load libdrm/2.4.115-GCCcore-12.3.0
+module use /lustre/shared/easybuild/modules/all
+module use PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
+module load PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
+module load Perl/5.36.1-GCCcore-12.3.0
 module list >> diarize_test.out
-conda activate nemo
-conda info --env
 cd /lustre/projects/Research_Project-T116269/nemo
 
-echo Modules loaded. Conda environment initialised successfully
+echo Modules loaded.
 
 ## nvidia driver version 560.35.03
 ## check cuda has loaded properly
@@ -47,12 +45,15 @@ echo lspci
 lspci | grep -i nvidia
 
 
-echo modinfo nvidia
-modinfo nvidia
+## echo modinfo nvidia
+## modinfo nvidia
+
 ## execute python script
 echo ==================================================================================
 echo Executing Python script...
-python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language en
+python cuda_test.py
+## python diarize.py -a audio/audio.mp3
+## python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language en
 echo Python script executed successfully
 
 

@@ -94,15 +94,14 @@ logging.info(f" torch.version.cuda: {torch.version.cuda}")
 logging.info(f" torch.cuda.is_available(): {torch.cuda.is_available()}")
 
 if torch.cuda.is_available():
-	logging.info(f" first cuda device: {torch.cuda.get_device_name(0)}")  # prints the name of the first CUDA device	
-	logging.info(f" device count: {torch.cuda.device_count()}")    # number of available CUDA devices
-	logging.info(f" using: cuda")
-	logging.info(f" Exiting script")
-	exit()		
+    logging.info(f" using: cuda")
+    logging.info(f" device count: {torch.cuda.device_count()}")
+    for i in range(torch.cuda.device_count()):
+        logging.info(f" device {i}: {torch.cuda.get_device_name(i)}")
 else:
-	logging.info(f" Cuda unavailable... using {args.device}")
-	logging.info(f" Exiting script")
-	exit()
+    logging.info(f" Cuda unavailable... using {args.device}")
+    logging.info(f" Exiting script")
+    exit()
 
 
 if args.stemming:
