@@ -16,15 +16,8 @@
 #SBATCH --error=diarize_test.err    				# submit script's standard-error
 #SBATCH --job-name=diarize_test
 
-## print start date and time
-echo ==================================================================================
-echo Job started on
-date -u
-current_date=$(date)
 
-
-## load modules and initialise conda env
-echo ==================================================================================
+## load modules
 echo Loading modules....
 
 module use /lustre/shared/easybuild/modules/all
@@ -36,12 +29,42 @@ module load Perl/5.36.1-GCCcore-12.3.0
 ## pip freeze >> requirements.txt
 
 cd /lustre/projects/Research_Project-T116269/nemo
-
 echo Modules loaded.
 
 
+
+## execute python script
+start_time=$(date +%s)
+echo Executing Python script...
+
+## python cuda_test.py
+## python diarize.py -a audio/audio.mp3
+## python diarize.py -a audio/AutHERTS01.mp3
+python diarize.py -a audio/AutHERTS01.mp3 --whisper-model large-v3 --language eng --no-stem
+
+echo Python script executed successfully.
+end_time=$(date +%s)
+elapsed_time=$((end_time - start_time))
+echo "Elapsed time: $elapsed_time seconds"
+echo End of script - job finished successfully.
+
+
+
+## print start date and time
+## echo =================================================>
+## echo Job started on
+## date -u
+## current_date=$(date)
+
+## output timing info
+## echo =================================================>
+## echo Job was started on
+## echo "$current_date"
+## echo Job ended on
+## date -u
+
 ## check cuda has loaded properly
-## echo =================================================================================
+## echo =================================================>
 ## echo Verifying cuda installation...
 ## echo nvidia-smi
 ## nvidia-smi
@@ -52,28 +75,3 @@ echo Modules loaded.
 
 ## echo modinfo nvidia
 ## modinfo nvidia
-
-
-## execute python script
-start_time=$(date +%s)
-echo ==================================================================================
-echo Executing Python script...
-## python cuda_test.py
-## python diarize.py -a audio/audio.mp3
-python diarize.py -a audio/AutHERTS01.mp3
-## python diarize.py -a audio/AutHERTS01.mp3 --no-stem --whisper-model large-v3 --language en
-echo Python script executed successfully
-
-end_time=$(date +%s)
-elapsed_time=$((end_time - start_time))
-
-## output timing info 
-echo ==================================================================================
-echo Job was started on
-echo "$current_date"
-echo Job ended on
-date -u
-echo ==================================================================================
-echo "Elapsed time: $elapsed_time seconds"
-echo ==================================================================================
-echo End of script - job finished successfully.

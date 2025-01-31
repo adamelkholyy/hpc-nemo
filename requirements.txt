@@ -47,6 +47,7 @@ datasets==3.2.0
 deap @ file:///dev/shm/cs1227/build/SciPybundle/2023.07/gfbf-2023a/deap/deap-1.4.0
 decorator @ file:///dev/shm/cs1227/build/PythonbundlePyPI/2023.06/GCCcore-12.3.0/decorator/decorator-5.1.1
 deepmultilingualpunctuation @ git+https://github.com/oliverguhr/deepmultilingualpunctuation.git@5a0dd7f4fd56687f59405aa8eba1144393d8b74b
+demucs @ git+https://github.com/MahmoudAshraf97/demucs.git@4273070a70ded308ddfd0879d267bbd06f89a1b7
 diffq==0.2.4
 dill==0.3.8
 Distance==0.1.3

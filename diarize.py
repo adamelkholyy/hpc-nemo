@@ -4,6 +4,10 @@ import os
 import re
 
 import torch
+# ReproducabilityWarning fix
+torch.backends.cuda.matmul.allow_tf32 = True
+torch.backends.cudnn.allow_tf32 = True
+
 import torchaudio
 from ctc_forced_aligner import (
     generate_emissions,
@@ -30,6 +34,7 @@ from helpers import (
     write_srt,
 )
 from transcription_helpers import transcribe_batched
+
 
 mtypes = {"cpu": "int8", "cuda": "float16"}
 
