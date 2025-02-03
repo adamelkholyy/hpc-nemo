@@ -40,7 +40,9 @@ echo Executing Python script...
 ## python cuda_test.py
 ## python diarize.py -a audio/audio.mp3
 ## python diarize.py -a audio/AutHERTS01.mp3
-python diarize_parallel.py -a audio/AutHERTS01.mp3 --whisper-model large-v3 --language "en" --no-stem --suppress_numerals
+## python diarize_parallel.py -a audio/AutHERTS01.mp3 --whisper-model large-v3 --language "en" --no-stem --suppress_numerals
+
+python diarize_batch.py -f audio --whisper-model large-v3 --language en
 
 
 echo Python script executed successfully.

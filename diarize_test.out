@@ -1,22 +1,22 @@
 Loading modules....
 Modules loaded.
 Executing Python script...
-[NeMo I 2025-01-31 12:20:36 nemo_logging:381] Loading pretrained diar_msdd_telephonic model from NGC
-[NeMo I 2025-01-31 12:20:36 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
-[NeMo I 2025-01-31 12:20:36 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo
-[NeMo I 2025-01-31 12:20:36 nemo_logging:381] Instantiating model from pre-trained checkpoint
-[NeMo I 2025-01-31 12:20:38 nemo_logging:381] PADDING: 16
-[NeMo I 2025-01-31 12:20:38 nemo_logging:381] PADDING: 16
-[NeMo I 2025-01-31 12:20:39 nemo_logging:381] Model EncDecDiarLabelModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
-[NeMo I 2025-01-31 12:20:39 nemo_logging:381] PADDING: 16
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Loading pretrained vad_multilingual_marblenet model from NGC
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Instantiating model from pre-trained checkpoint
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] PADDING: 16
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Model EncDecClassificationModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Multiscale Weights: [1, 1, 1, 1, 1]
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Clustering Parameters: {
+[NeMo I 2025-02-03 14:29:11 nemo_logging:381] Loading pretrained diar_msdd_telephonic model from NGC
+[NeMo I 2025-02-03 14:29:11 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:29:11 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo
+[NeMo I 2025-02-03 14:29:11 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:29:13 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:29:15 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] Model EncDecDiarLabelModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] Loading pretrained vad_multilingual_marblenet model from NGC
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo
+[NeMo I 2025-02-03 14:29:16 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] Model EncDecClassificationModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] Multiscale Weights: [1, 1, 1, 1, 1]
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] Clustering Parameters: {
         "oracle_num_speakers": false,
         "max_num_speakers": 8,
         "enhanced_count_thres": 80,
@@ -26,64 +26,235 @@ Executing Python script...
         "chunk_cluster_count": 50,
         "embeddings_per_chunk": 10000
     }
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Number of files to diarize: 1
-[NeMo I 2025-01-31 12:20:40 nemo_logging:381] Split long audio file to avoid CUDA memory issue
-[NeMo I 2025-01-31 12:20:41 nemo_logging:381] Perform streaming frame-level VAD
-[NeMo I 2025-01-31 12:20:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:20:41 nemo_logging:381] Dataset successfully loaded with 59 items and total duration provided from manifest is  0.81 hours.
-[NeMo I 2025-01-31 12:20:41 nemo_logging:381] # 59 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:20:51 nemo_logging:381] Generating predictions with overlapping input segments
-[NeMo I 2025-01-31 12:21:08 nemo_logging:381] Converting frame level prediction to speech/no-speech segment in start and end times format.
-[NeMo I 2025-01-31 12:21:09 nemo_logging:381] Subsegmentation for embedding extraction: scale0, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale0.json
-[NeMo I 2025-01-31 12:21:09 nemo_logging:381] Extracting embeddings for Diarization
-[NeMo I 2025-01-31 12:21:09 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:21:09 nemo_logging:381] Dataset successfully loaded with 2798 items and total duration provided from manifest is  0.90 hours.
-[NeMo I 2025-01-31 12:21:09 nemo_logging:381] # 2798 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] Subsegmentation for embedding extraction: scale1, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale1.json
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] Extracting embeddings for Diarization
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] Dataset successfully loaded with 3301 items and total duration provided from manifest is  0.93 hours.
-[NeMo I 2025-01-31 12:21:11 nemo_logging:381] # 3301 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] Subsegmentation for embedding extraction: scale2, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale2.json
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] Extracting embeddings for Diarization
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] Dataset successfully loaded with 4059 items and total duration provided from manifest is  0.97 hours.
-[NeMo I 2025-01-31 12:21:13 nemo_logging:381] # 4059 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:21:14 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
-[NeMo I 2025-01-31 12:21:14 nemo_logging:381] Subsegmentation for embedding extraction: scale3, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale3.json
-[NeMo I 2025-01-31 12:21:14 nemo_logging:381] Extracting embeddings for Diarization
-[NeMo I 2025-01-31 12:21:15 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:21:15 nemo_logging:381] Dataset successfully loaded with 5389 items and total duration provided from manifest is  1.02 hours.
-[NeMo I 2025-01-31 12:21:15 nemo_logging:381] # 5389 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] Subsegmentation for embedding extraction: scale4, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4.json
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] Extracting embeddings for Diarization
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] Dataset successfully loaded with 8153 items and total duration provided from manifest is  1.07 hours.
-[NeMo I 2025-01-31 12:21:17 nemo_logging:381] # 8153 files loaded accounting to # 1 labels
-[NeMo I 2025-01-31 12:21:20 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Outputs are saved in /lustre/projects/Research_Project-T116269/nemo/temp_outputs directory
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading embedding pickle file of scale:0 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale0_embeddings.pkl
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading embedding pickle file of scale:1 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale1_embeddings.pkl
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading embedding pickle file of scale:2 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale2_embeddings.pkl
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading embedding pickle file of scale:3 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale3_embeddings.pkl
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading embedding pickle file of scale:4 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale4_embeddings.pkl
-[NeMo I 2025-01-31 12:21:22 nemo_logging:381] Loading cluster label file from /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4_cluster.label
-[NeMo I 2025-01-31 12:21:23 nemo_logging:381] Filtered duration for loading collection is 0.000000.
-[NeMo I 2025-01-31 12:21:23 nemo_logging:381] Total 1 session files loaded accounting to # 1 audio clips
-[NeMo I 2025-01-31 12:21:23 nemo_logging:381]      [Threshold: 0.7000] [use_clus_as_main=False] [diar_window=50]
-[NeMo I 2025-01-31 12:21:23 nemo_logging:381] Number of files to diarize: 1
-[NeMo I 2025-01-31 12:21:23 nemo_logging:381] Number of files to diarize: 1
-[NeMo I 2025-01-31 12:21:24 nemo_logging:381] Number of files to diarize: 1
-[NeMo I 2025-01-31 12:21:24 nemo_logging:381] Number of files to diarize: 1
-[NeMo I 2025-01-31 12:21:24 nemo_logging:381]   
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:29:17 nemo_logging:381] Split long audio file to avoid CUDA memory issue
+[NeMo I 2025-02-03 14:29:36 nemo_logging:381] Perform streaming frame-level VAD
+[NeMo I 2025-02-03 14:29:36 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:29:36 nemo_logging:381] Dataset successfully loaded with 59 items and total duration provided from manifest is  0.81 hours.
+[NeMo I 2025-02-03 14:29:36 nemo_logging:381] # 59 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:29:53 nemo_logging:381] Generating predictions with overlapping input segments
+[NeMo I 2025-02-03 14:30:11 nemo_logging:381] Converting frame level prediction to speech/no-speech segment in start and end times format.
+[NeMo I 2025-02-03 14:30:14 nemo_logging:381] Subsegmentation for embedding extraction: scale0, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale0.json
+[NeMo I 2025-02-03 14:30:14 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:30:14 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:30:14 nemo_logging:381] Dataset successfully loaded with 2798 items and total duration provided from manifest is  0.90 hours.
+[NeMo I 2025-02-03 14:30:14 nemo_logging:381] # 2798 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] Subsegmentation for embedding extraction: scale1, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale1.json
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] Dataset successfully loaded with 3301 items and total duration provided from manifest is  0.93 hours.
+[NeMo I 2025-02-03 14:30:20 nemo_logging:381] # 3301 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] Subsegmentation for embedding extraction: scale2, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale2.json
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] Dataset successfully loaded with 4059 items and total duration provided from manifest is  0.97 hours.
+[NeMo I 2025-02-03 14:30:22 nemo_logging:381] # 4059 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] Subsegmentation for embedding extraction: scale3, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale3.json
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] Dataset successfully loaded with 5389 items and total duration provided from manifest is  1.02 hours.
+[NeMo I 2025-02-03 14:30:25 nemo_logging:381] # 5389 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] Subsegmentation for embedding extraction: scale4, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4.json
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] Dataset successfully loaded with 8153 items and total duration provided from manifest is  1.07 hours.
+[NeMo I 2025-02-03 14:30:28 nemo_logging:381] # 8153 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:30:32 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Outputs are saved in /lustre/projects/Research_Project-T116269/nemo/temp_outputs directory
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading embedding pickle file of scale:0 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale0_embeddings.pkl
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading embedding pickle file of scale:1 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale1_embeddings.pkl
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading embedding pickle file of scale:2 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale2_embeddings.pkl
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading embedding pickle file of scale:3 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale3_embeddings.pkl
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading embedding pickle file of scale:4 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale4_embeddings.pkl
+[NeMo I 2025-02-03 14:30:43 nemo_logging:381] Loading cluster label file from /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4_cluster.label
+[NeMo I 2025-02-03 14:30:44 nemo_logging:381] Filtered duration for loading collection is 0.000000.
+[NeMo I 2025-02-03 14:30:44 nemo_logging:381] Total 1 session files loaded accounting to # 1 audio clips
+[NeMo I 2025-02-03 14:30:45 nemo_logging:381]      [Threshold: 0.7000] [use_clus_as_main=False] [diar_window=50]
+[NeMo I 2025-02-03 14:30:45 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:30:45 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:30:46 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:30:46 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:30:46 nemo_logging:381]   
     
 No language specified, language will be first be detected for each audio file (increases inference time).
 Model was trained with pyannote.audio 0.0.1, yours is 3.1.1. Bad things might happen unless you revert pyannote.audio to 0.x.
 Model was trained with torch 1.10.0+cu102, yours is 2.1.2. Bad things might happen unless you revert torch to 1.x.
 Suppressing numeral and symbol tokens
+[NeMo I 2025-02-03 14:32:53 nemo_logging:381] Loading pretrained diar_msdd_telephonic model from NGC
+[NeMo I 2025-02-03 14:32:53 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:32:53 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo
+[NeMo I 2025-02-03 14:32:53 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:32:54 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:32:55 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] Model EncDecDiarLabelModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] Loading pretrained vad_multilingual_marblenet model from NGC
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:32:56 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:32:57 nemo_logging:381] Model EncDecClassificationModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:32:57 nemo_logging:381] Multiscale Weights: [1, 1, 1, 1, 1]
+[NeMo I 2025-02-03 14:32:57 nemo_logging:381] Clustering Parameters: {
+        "oracle_num_speakers": false,
+        "max_num_speakers": 8,
+        "enhanced_count_thres": 80,
+        "max_rp_threshold": 0.25,
+        "sparse_search_volume": 30,
+        "maj_vote_spk_count": false,
+        "chunk_cluster_count": 50,
+        "embeddings_per_chunk": 10000
+    }
+[NeMo I 2025-02-03 14:32:57 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:32:57 nemo_logging:381] Split long audio file to avoid CUDA memory issue
+[NeMo I 2025-02-03 14:32:58 nemo_logging:381] Perform streaming frame-level VAD
+[NeMo I 2025-02-03 14:32:58 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:32:58 nemo_logging:381] Dataset successfully loaded with 95 items and total duration provided from manifest is  1.31 hours.
+[NeMo I 2025-02-03 14:32:58 nemo_logging:381] # 95 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:13 nemo_logging:381] Generating predictions with overlapping input segments
+[NeMo I 2025-02-03 14:33:39 nemo_logging:381] Converting frame level prediction to speech/no-speech segment in start and end times format.
+[NeMo I 2025-02-03 14:33:41 nemo_logging:381] Subsegmentation for embedding extraction: scale0, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale0.json
+[NeMo I 2025-02-03 14:33:41 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:33:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:33:41 nemo_logging:381] Dataset successfully loaded with 4328 items and total duration provided from manifest is  1.52 hours.
+[NeMo I 2025-02-03 14:33:41 nemo_logging:381] # 4328 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] Subsegmentation for embedding extraction: scale1, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale1.json
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] Dataset successfully loaded with 5216 items and total duration provided from manifest is  1.59 hours.
+[NeMo I 2025-02-03 14:33:44 nemo_logging:381] # 5216 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] Subsegmentation for embedding extraction: scale2, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale2.json
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] Dataset successfully loaded with 6489 items and total duration provided from manifest is  1.64 hours.
+[NeMo I 2025-02-03 14:33:46 nemo_logging:381] # 6489 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] Subsegmentation for embedding extraction: scale3, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale3.json
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] Dataset successfully loaded with 8740 items and total duration provided from manifest is  1.71 hours.
+[NeMo I 2025-02-03 14:33:49 nemo_logging:381] # 8740 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] Subsegmentation for embedding extraction: scale4, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4.json
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] Dataset successfully loaded with 13343 items and total duration provided from manifest is  1.79 hours.
+[NeMo I 2025-02-03 14:33:53 nemo_logging:381] # 13343 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:33:58 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:34:05 nemo_logging:381] Outputs are saved in /lustre/projects/Research_Project-T116269/nemo/temp_outputs directory
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading embedding pickle file of scale:0 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale0_embeddings.pkl
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading embedding pickle file of scale:1 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale1_embeddings.pkl
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading embedding pickle file of scale:2 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale2_embeddings.pkl
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading embedding pickle file of scale:3 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale3_embeddings.pkl
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading embedding pickle file of scale:4 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale4_embeddings.pkl
+[NeMo I 2025-02-03 14:34:06 nemo_logging:381] Loading cluster label file from /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4_cluster.label
+[NeMo I 2025-02-03 14:34:07 nemo_logging:381] Filtered duration for loading collection is 0.000000.
+[NeMo I 2025-02-03 14:34:07 nemo_logging:381] Total 1 session files loaded accounting to # 1 audio clips
+[NeMo I 2025-02-03 14:34:08 nemo_logging:381]      [Threshold: 0.7000] [use_clus_as_main=False] [diar_window=50]
+[NeMo I 2025-02-03 14:34:08 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:34:08 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:34:08 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:34:09 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:34:09 nemo_logging:381]   
+    
+No language specified, language will be first be detected for each audio file (increases inference time).
+Model was trained with pyannote.audio 0.0.1, yours is 3.1.1. Bad things might happen unless you revert pyannote.audio to 0.x.
+Model was trained with torch 1.10.0+cu102, yours is 2.1.2. Bad things might happen unless you revert torch to 1.x.
+Suppressing numeral and symbol tokens
+[NeMo I 2025-02-03 14:35:35 nemo_logging:381] Loading pretrained diar_msdd_telephonic model from NGC
+[NeMo I 2025-02-03 14:35:35 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:35:35 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo
+[NeMo I 2025-02-03 14:35:35 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:35:36 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:35:37 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:35:37 nemo_logging:381] Model EncDecDiarLabelModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/diar_msdd_telephonic/3c3697a0a46f945574fa407149975a13/diar_msdd_telephonic.nemo.
+[NeMo I 2025-02-03 14:35:37 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Loading pretrained vad_multilingual_marblenet model from NGC
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Found existing object /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Re-using file from: /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Instantiating model from pre-trained checkpoint
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] PADDING: 16
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Model EncDecClassificationModel was successfully restored from /lustre/home/ae553/.cache/torch/NeMo/NeMo_2.0.0rc1/vad_multilingual_marblenet/670f425c7f186060b7a7268ba6dfacb2/vad_multilingual_marblenet.nemo.
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Multiscale Weights: [1, 1, 1, 1, 1]
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Clustering Parameters: {
+        "oracle_num_speakers": false,
+        "max_num_speakers": 8,
+        "enhanced_count_thres": 80,
+        "max_rp_threshold": 0.25,
+        "sparse_search_volume": 30,
+        "maj_vote_spk_count": false,
+        "chunk_cluster_count": 50,
+        "embeddings_per_chunk": 10000
+    }
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:35:38 nemo_logging:381] Split long audio file to avoid CUDA memory issue
+[NeMo I 2025-02-03 14:35:39 nemo_logging:381] Perform streaming frame-level VAD
+[NeMo I 2025-02-03 14:35:39 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:39 nemo_logging:381] Dataset successfully loaded with 3 items and total duration provided from manifest is  0.03 hours.
+[NeMo I 2025-02-03 14:35:39 nemo_logging:381] # 3 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:39 nemo_logging:381] Generating predictions with overlapping input segments
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] Converting frame level prediction to speech/no-speech segment in start and end times format.
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] Subsegmentation for embedding extraction: scale0, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale0.json
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] Dataset successfully loaded with 75 items and total duration provided from manifest is  0.02 hours.
+[NeMo I 2025-02-03 14:35:40 nemo_logging:381] # 75 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Subsegmentation for embedding extraction: scale1, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale1.json
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Dataset successfully loaded with 79 items and total duration provided from manifest is  0.02 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] # 79 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Subsegmentation for embedding extraction: scale2, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale2.json
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Dataset successfully loaded with 96 items and total duration provided from manifest is  0.02 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] # 96 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Subsegmentation for embedding extraction: scale3, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale3.json
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Dataset successfully loaded with 123 items and total duration provided from manifest is  0.02 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] # 123 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Subsegmentation for embedding extraction: scale4, /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4.json
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Extracting embeddings for Diarization
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Filtered duration for loading collection is  0.00 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Dataset successfully loaded with 179 items and total duration provided from manifest is  0.02 hours.
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] # 179 files loaded accounting to # 1 labels
+[NeMo I 2025-02-03 14:35:41 nemo_logging:381] Saved embedding files to /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Outputs are saved in /lustre/projects/Research_Project-T116269/nemo/temp_outputs directory
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading embedding pickle file of scale:0 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale0_embeddings.pkl
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading embedding pickle file of scale:1 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale1_embeddings.pkl
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading embedding pickle file of scale:2 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale2_embeddings.pkl
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading embedding pickle file of scale:3 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale3_embeddings.pkl
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading embedding pickle file of scale:4 at /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/embeddings/subsegments_scale4_embeddings.pkl
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Loading cluster label file from /lustre/projects/Research_Project-T116269/nemo/temp_outputs/speaker_outputs/subsegments_scale4_cluster.label
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Filtered duration for loading collection is 0.000000.
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Total 1 session files loaded accounting to # 1 audio clips
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381]      [Threshold: 0.7000] [use_clus_as_main=False] [diar_window=50]
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:35:42 nemo_logging:381] Number of files to diarize: 1
+[NeMo I 2025-02-03 14:35:43 nemo_logging:381]   
+    
+No language specified, language will be first be detected for each audio file (increases inference time).
+Model was trained with pyannote.audio 0.0.1, yours is 3.1.1. Bad things might happen unless you revert pyannote.audio to 0.x.
+Model was trained with torch 1.10.0+cu102, yours is 2.1.2. Bad things might happen unless you revert torch to 1.x.
+Suppressing numeral and symbol tokens
+Transcribing and diarizing 3 audio files in /lustre/projects/Research_Project-T116269/nemo/audio...
+Processing AutHERTS01.mp3...
+Processing AutSWYS01.mp3...
+Processing audio.mp3...
+Successfully transcribed and diarized 3 audio files in /lustre/projects/Research_Project-T116269/nemo/audio.
 Python script executed successfully.
-Elapsed time: 92 seconds
+Elapsed time: 711 seconds
 End of script - job finished successfully.

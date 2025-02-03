@@ -1,4 +1,3 @@
-# slurm_env.sh
 module use /lustre/shared/easybuild/modules/all
 module use PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
 module load PyTorch-bundle/2.1.2-foss-2023a-CUDA-12.1.1
