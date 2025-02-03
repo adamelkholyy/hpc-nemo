@@ -42,7 +42,7 @@ print(f"Transcribing and diarizing {len(audio_files)} audio files in {audio_fold
 for file in audio_files:
     print(f"Processing {file}...")
     file_path = os.path.join(audio_folder, file)
-    command = f"python diarize.py -a {file_path} --no-stem --suppress_numerals --whisper-model {args.model_name} --language {args.language} --batch-size {args.batch_size}"
+    command = f"python diarize_parallel.py -a {file_path} --no-stem --suppress_numerals --whisper-model {args.model_name} --language {args.language} --batch-size {args.batch_size}"
     subprocess.run(command, shell=True)
 
 print(f"Successfully transcribed and diarized {len(audio_files)} audio files in {audio_folder}.")
