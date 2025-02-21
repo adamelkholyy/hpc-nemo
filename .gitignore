@@ -9,5 +9,6 @@ audio/
 *.mp3
 *.m4a
 !requirements.txt
-!wer_calculations/
-
+diarize_test.out
+diarize_test.err
+nohup.out
