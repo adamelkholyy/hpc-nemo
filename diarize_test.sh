@@ -42,7 +42,8 @@ echo Executing Python script...
 ## python diarize.py -a audio/AutHERTS01.mp3
 ## python diarize_parallel.py -a audio/AutHERTS01.mp3 --whisper-model large-v3 --language "en" --no-stem --suppress_numerals
 
-python diarize_batch.py -f audio --whisper-model large-v3 --language en
+python diarize_batch.py -f "audio/verity2/" --whisper-model large-v3 --language en
+## python anonymise_transcript.py --folder "audio/verity/" --out "audio/verity/"
 
 
 echo Python script executed successfully.
