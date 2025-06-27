@@ -1,6 +1,14 @@
 import os 
 import subprocess
 import argparse
+import time
+
+# format estimated finish time into HH:MM:SS
+def format_time(seconds):
+    total_hours, remainder = divmod(seconds, 3600)
+    minutes, secs = divmod(remainder, 60)
+    return f"{int(total_hours):02}:{int(minutes):02}:{int(secs):02}"
+
 
 # initialize parser
 parser = argparse.ArgumentParser()
@@ -33,16 +41,39 @@ parser.add_argument(
 args = parser.parse_args()
 
 # get audio file paths
-cwd = os.getcwd()
-audio_folder = os.path.join(cwd, args.folder)
-audio_files = [f for f in os.listdir(audio_folder) if f.lower().endswith('.mp3') or f.lower().endswith('.wav')]
-print(f"Transcribing and diarizing {len(audio_files)} audio files in {audio_folder}...")
+audio_folder = args.folder
 
-# process each audio file
-for file in audio_files:
-    print(f"Processing {file}...")
+# separate untranscribed files
+processed_files = [f[:-4] for f in os.listdir(audio_folder) if f.lower().endswith('txt')]
+unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith('.mp3') or f.lower().endswith('.wav')]
+total_processed_files = len(processed_files)
+total_unprocessed_files = len(unprocessed_files)
+
+print(f"Transcribing and diarizing {total_unprocessed_files} audio files in {audio_folder}...")
+
+file_counter = 1
+total_time = 100
+for file in unprocessed_files:
+ 
+    # calculate ETA using rolling average time
+    average_time = total_time / file_counter
+    eta_seconds = average_time * (total_unprocessed_files - file_counter)
+    eta_formatted = format_time(eta_seconds)
+    print(f"Transcribing and diarizing {file}...")
+
+    # transcribe and diarize file
     file_path = os.path.join(audio_folder, file)
     command = f"python diarize_parallel.py -a {file_path} --no-stem --suppress_numerals --whisper-model {args.model_name} --language {args.language} --batch-size {args.batch_size}"
+    start = time.time()
     subprocess.run(command, shell=True)
+    end = time.time()
 
-print(f"Successfully transcribed and diarized {len(audio_files)} audio files in {audio_folder}.")
+    # append timing info to logfile
+    with open("diarize_log.txt", "a", encoding="utf-8") as f:
+        f.write(f"{file_counter + total_processed_files}\t{file}\t{end:.2f}s\t{(((total_processed_files + file_counter)/(total_unprocessed_files + total_processed_files))*100):.2f}%\t{eta_formatted}" + "\n")
+
+    print(f"Transcribed and diarized {file} in {end:.2f}s")
+    file_counter += 1
+    total_time += end
+
+print(f"Successfully transcribed and diarized {file_counter} audio files in {audio_folder}.")
