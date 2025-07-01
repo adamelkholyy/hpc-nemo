@@ -3,6 +3,7 @@ import subprocess
 import argparse
 import time
 
+
 # format estimated finish time into HH:MM:SS
 def format_time(seconds):
     total_hours, remainder = divmod(seconds, 3600)
@@ -44,12 +45,13 @@ args = parser.parse_args()
 audio_folder = args.folder
 
 # separate untranscribed files
-processed_files = [f[:-4] for f in os.listdir(audio_folder) if f.lower().endswith('txt')]
-unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith('.mp3') or f.lower().endswith('.wav')]
+processed_files = [f[:-4] for f in os.listdir("/lustre/projects/Research_Project-T116269/cobalt-text-txt")]
+unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith('.mp3') and f[:-4] not in processed_files]
 total_processed_files = len(processed_files)
 total_unprocessed_files = len(unprocessed_files)
 
 print(f"Transcribing and diarizing {total_unprocessed_files} audio files in {audio_folder}...")
+
 
 file_counter = 1
 total_time = 100
@@ -66,11 +68,11 @@ for file in unprocessed_files:
     command = f"python diarize_parallel.py -a {file_path} --no-stem --suppress_numerals --whisper-model {args.model_name} --language {args.language} --batch-size {args.batch_size}"
     start = time.time()
     subprocess.run(command, shell=True)
-    end = time.time()
+    end = time.time() - start
 
     # append timing info to logfile
     with open("diarize_log.txt", "a", encoding="utf-8") as f:
-        f.write(f"{file_counter + total_processed_files}\t{file}\t{end:.2f}s\t{(((total_processed_files + file_counter)/(total_unprocessed_files + total_processed_files))*100):.2f}%\t{eta_formatted}" + "\n")
+        f.write(f"{file_counter + total_processed_files}\t{file}\t{end:.2f}s\t{((file_counter/(total_unprocessed_files + total_processed_files))*100):.2f}%\t{eta_formatted}" + "\n")
 
     print(f"Transcribed and diarized {file} in {end:.2f}s")
     file_counter += 1

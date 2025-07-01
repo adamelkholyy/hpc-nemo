@@ -220,7 +220,11 @@ langs_to_iso = {
 
 
 def create_config(output_dir):
-    DOMAIN_TYPE = "telephonic"  # Can be meeting, telephonic, or general based on domain type of the audio file
+
+    # TODO: add num_speakers arg
+
+    DOMAIN_TYPE = "telephonic"  # meeting (unreleased as of July 2025), telephonic, or general based on domain type of the audio file
+
     CONFIG_LOCAL_DIRECTORY = "nemo_msdd_configs"
     CONFIG_FILE_NAME = f"diar_infer_{DOMAIN_TYPE}.yaml"
     MODEL_CONFIG_PATH = os.path.join(CONFIG_LOCAL_DIRECTORY, CONFIG_FILE_NAME)
@@ -261,14 +265,24 @@ def create_config(output_dir):
     )
     config.diarizer.clustering.parameters.oracle_num_speakers = False
 
+
+    # CHANGE NUM_SPEAKERS ARG HERE
+    num_speakers = 2
+    config.diarizer.clustering.parameters.clustering_type = "spectral"
+    config.diarizer.clustering.parameters.max_num_speakers = num_speakers
+    config.diarizer.clustering.parameters.min_num_speakers = num_speakers
+
     # Here, we use our in-house pretrained NeMo VAD model
     config.diarizer.vad.model_path = pretrained_vad
     config.diarizer.vad.parameters.onset = 0.8
     config.diarizer.vad.parameters.offset = 0.6
     config.diarizer.vad.parameters.pad_offset = -0.05
+
     config.diarizer.msdd_model.model_path = (
-        "diar_msdd_telephonic"  # Telephonic speaker diarization model
+        "diar_msdd_telephonic"  # _meeting, _telephonic speaker diarization model
     )
+
+    print("NEMO PARAMS CHANGED UPDATE 1")
 
     return config
 
