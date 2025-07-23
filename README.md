@@ -1,4 +1,4 @@
-<h1 align="center">Speaker Diarization Using OpenAI Whisper HPC Fork</h1>
+<h1 align="center">ISCA Transcription + Diarization Tool</h1>
 
 This project is a fork of @MahmoudAshraf97's [whisper diarization tool](https://github.com/MahmoudAshraf97/whisper-diarization), modified for use on the University of Exeter ISCA's High Performance Computing Server. All credit goes to the original authors of this incredible project. A brief changelog is detailed below listing my edits for compatability on Exeter's ISCA supercomputer.  
 
@@ -14,8 +14,18 @@ HPC Compatability changelog
     - C++ build tools
 - Fixed error in Nemo module: ```.SUBKILL``` changed to ```.SUBTERM```
 - Added detailed logging for transcriptions, including ETA and average times
-- 
-    
+- Added a forced ```num_speakers``` to ```helpers.py``` for more accurate transcription
+  
+*And many, many, many more minor edits throughout to make this work on ISCA!*
+
+Future implementations
+- Command line args for:
+    - NeMo params
+    - Translation
+    - Toggling diarization on/off
+- Docs
+- Easy install script
+
 Last updated: 23/07/25
 
 [1] _Whisper Diarization: Speaker Diarization Using OpenAI Whisper_, Mahmoud Ashraf, 2024, https://github.com/MahmoudAshraf97/whisper-diarization
