@@ -8,11 +8,15 @@ HPC Compatability changelog
 - Added SBATCH scripts (```diarize_test.sh```) to execute on GPU nodes via slurm
 - Added errors and logging output for HPC GPUs
 - Edited ```requirements.txt``` for compatability with ISCA modules
-- Included FFMpeg, Perl, and C++ build tools in ```load_modules.sh``` 
-- Nemo module: ```.SUBKILL``` changed to ```.SUBTERM``` to avoid errors
+- Installed the following onto ISCA (see ```load_modules.sh```):
+    - FFMpeg
+    - Perl
+    - C++ build tools
+- Fixed error in Nemo module: ```.SUBKILL``` changed to ```.SUBTERM```
 - Added detailed logging for transcriptions, including ETA and average times
+- 
     
-Last updated: 08/07/25
+Last updated: 23/07/25
 
 [1] _Whisper Diarization: Speaker Diarization Using OpenAI Whisper_, Mahmoud Ashraf, 2024, https://github.com/MahmoudAshraf97/whisper-diarization
 
