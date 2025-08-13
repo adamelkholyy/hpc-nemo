@@ -1,4 +1,4 @@
-import os 
+import os
 import subprocess
 import argparse
 import time
@@ -46,7 +46,7 @@ audio_folder = args.folder
 
 # separate untranscribed files
 processed_files = [f[:-4] for f in os.listdir("/lustre/projects/Research_Project-T116269/cobalt-text-txt")]
-unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith('.mp3') and f[:-4] not in processed_files]
+unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith(".mp3") and f[:-4] not in processed_files]
 total_processed_files = len(processed_files)
 total_unprocessed_files = len(unprocessed_files)
 
@@ -56,7 +56,6 @@ print(f"Transcribing and diarizing {total_unprocessed_files} audio files in {aud
 file_counter = 1
 total_time = 100
 for file in unprocessed_files:
- 
     # calculate ETA using rolling average time
     average_time = total_time / file_counter
     eta_seconds = average_time * (total_unprocessed_files - file_counter)
@@ -72,7 +71,14 @@ for file in unprocessed_files:
 
     # append timing info to logfile
     with open("diarize_log.txt", "a", encoding="utf-8") as f:
-        f.write(f"{file_counter + total_processed_files}\t{file}\t{end:.2f}s\t{((file_counter/(total_unprocessed_files + total_processed_files))*100):.2f}%\t{eta_formatted}" + "\n")
+        f.write(
+            f"{file_counter + total_processed_files}\t" + 
+            f"{file}\t" + 
+            f"{end:.2f}s\t" + 
+            f"{((file_counter / total_unprocessed_files) * 100):.2f}%" + 
+            f"\t{eta_formatted}" + 
+            "\n"
+        )
 
     print(f"Transcribed and diarized {file} in {end:.2f}s")
     file_counter += 1

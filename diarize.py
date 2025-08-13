@@ -94,19 +94,17 @@ parser.add_argument(
 args = parser.parse_args()
 language = process_language_arg(args.language, args.model_name)
 
-# cuda debug info
-logging.info(f" torch.version.cuda: {torch.version.cuda}")
-logging.info(f" torch.cuda.is_available(): {torch.cuda.is_available()}")
+# Cuda debug info
+logging.info(f"torch.version.cuda: {torch.version.cuda}")
+logging.info(f"torch.cuda.is_available(): {torch.cuda.is_available()}")
 
 if torch.cuda.is_available():
-    logging.info(f" using: cuda")
-    logging.info(f" device count: {torch.cuda.device_count()}")
+    logging.info(f"using: cuda")
+    logging.info(f"device count: {torch.cuda.device_count()}")
     for i in range(torch.cuda.device_count()):
-        logging.info(f" device {i}: {torch.cuda.get_device_name(i)}")
+        logging.info(f"device {i}: {torch.cuda.get_device_name(i)}")
 else:
-    logging.info(f" Cuda unavailable... using {args.device}")
-    logging.info(f" Exiting script")
-    exit()
+    logging.info(f"Cuda unavailable... using {args.device}")
 
 
 if args.stemming:

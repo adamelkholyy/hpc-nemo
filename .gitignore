@@ -2,7 +2,4 @@
 __pycache__/
 .venv/
 temp_outputs/
-audio/
-diarize.out
-diarize.err
-diarize_log.txt
+logs/

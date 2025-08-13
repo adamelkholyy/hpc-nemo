@@ -282,7 +282,6 @@ def create_config(output_dir):
         "diar_msdd_telephonic"  # _meeting, _telephonic speaker diarization model
     )
 
-    print("NEMO PARAMS CHANGED UPDATE 1")
 
     return config
 

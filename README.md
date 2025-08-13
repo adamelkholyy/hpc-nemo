@@ -17,3 +17,9 @@ Last updated: 17/04/25
 
 [1] _Whisper Diarization: Speaker Diarization Using OpenAI Whisper_, Mahmoud Ashraf, 2024, https://github.com/MahmoudAshraf97/whisper-diarization
 
+
+
+
+## TODO
+- Requirements.txt for setting up in an new venv (+ adding perl, C++ build tools, ffmpeg to reqs.)
+- Mention of how .venv on HPC works (and how to activate etc)
