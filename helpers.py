@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import shutil
 
@@ -8,6 +7,7 @@ import wget
 from omegaconf import OmegaConf
 from whisperx.alignment import DEFAULT_ALIGN_MODELS_HF, DEFAULT_ALIGN_MODELS_TORCH
 from whisperx.utils import LANGUAGES, TO_LANGUAGE_CODE
+from typing import Literal
 
 punct_model_langs = [
     "en",
@@ -219,14 +219,33 @@ langs_to_iso = {
 }
 
 
-def create_config(output_dir):
 
-    # TODO: add num_speakers arg
+def create_config(
+    output_dir: str | os.PathLike,
+    num_speakers: int = 0,
+    num_workers: int = 0,
+    domain_type: Literal["telephonic", "meeting", "general"] = "telephonic",
+    use_custom_vad_params: bool = False,
+):
+    """
+    Create config for NeMo diarization model
 
-    DOMAIN_TYPE = "telephonic"  # meeting (unreleased as of July 2025), telephonic, or general based on domain type of the audio file
+    Args
+        output_dir (str | os.PathLike): Output directory for config file
+        num_speakers (int, optional): Number of speakers in audio. Default is 0 for automatic detection. 
+        num_workers (int, optional): Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores.
+        domain_type (Literal["telephonic", "meeting", "general"], optional): Type of diarization model to use. Options are as follows (default is 'telephonic')         
+            - 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues
+            - 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues
+            - 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set
+        use_custom_vad_params (bool, optional): Toggle to use custom VAD parameters defined by @MahmoudAshraf97 for NeMo with Whisper. Default is False to use the existing pre-tuned NeMo params 
+
+    Returns
+        config (DictConfig | ListConfig): Config for NeMo diarization model
+    """
 
     CONFIG_LOCAL_DIRECTORY = "nemo_msdd_configs"
-    CONFIG_FILE_NAME = f"diar_infer_{DOMAIN_TYPE}.yaml"
+    CONFIG_FILE_NAME = f"diar_infer_{domain_type}.yaml"
     MODEL_CONFIG_PATH = os.path.join(CONFIG_LOCAL_DIRECTORY, CONFIG_FILE_NAME)
     if not os.path.exists(MODEL_CONFIG_PATH):
         os.makedirs(CONFIG_LOCAL_DIRECTORY, exist_ok=True)
@@ -247,41 +266,37 @@ def create_config(output_dir):
         "rttm_filepath": None,
         "uem_filepath": None,
     }
+
+    if num_speakers:
+        meta["num_speakers"] = num_speakers
+
     with open(os.path.join(data_dir, "input_manifest.json"), "w") as fp:
         json.dump(meta, fp)
         fp.write("\n")
 
-    pretrained_vad = "vad_multilingual_marblenet"
-    pretrained_speaker_model = "titanet_large"
-    config.num_workers = 0
+
+    # Set number of CPU threads for audio splitting
+    if not num_workers:
+        config.num_workers = max(1, os.cpu_count() - 1)
+    else:
+        config.num_workers = num_workers
+
     config.diarizer.manifest_filepath = os.path.join(data_dir, "input_manifest.json")
     config.diarizer.out_dir = (
         output_dir  # Directory to store intermediate files and prediction outputs
     )
-
-    config.diarizer.speaker_embeddings.model_path = pretrained_speaker_model
     config.diarizer.oracle_vad = (
         False  # compute VAD provided with model_path to vad config
     )
-    config.diarizer.clustering.parameters.oracle_num_speakers = False
-
-
-    # CHANGE NUM_SPEAKERS ARG HERE
-    num_speakers = 2
-    config.diarizer.clustering.parameters.clustering_type = "spectral"
-    config.diarizer.clustering.parameters.max_num_speakers = num_speakers
-    config.diarizer.clustering.parameters.min_num_speakers = num_speakers
-
-    # Here, we use our in-house pretrained NeMo VAD model
-    config.diarizer.vad.model_path = pretrained_vad
-    config.diarizer.vad.parameters.onset = 0.8
-    config.diarizer.vad.parameters.offset = 0.6
-    config.diarizer.vad.parameters.pad_offset = -0.05
-
-    config.diarizer.msdd_model.model_path = (
-        "diar_msdd_telephonic"  # _meeting, _telephonic speaker diarization model
+    config.diarizer.clustering.parameters.oracle_num_speakers = (
+        True if num_speakers else False # Fix num_speakers if pre-defined else infer
     )
 
+    # @MahmoudAshraf97: Here, we use our in-house pretrained NeMo VAD model
+    if use_custom_vad_params:
+        config.diarizer.vad.parameters.onset = 0.8
+        config.diarizer.vad.parameters.offset = 0.6
+        config.diarizer.vad.parameters.pad_offset = -0.05
 
     return config
 

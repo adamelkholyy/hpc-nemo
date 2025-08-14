@@ -91,8 +91,44 @@ parser.add_argument(
     help="if you have a GPU use 'cuda', otherwise 'cpu'",
 )
 
-args = parser.parse_args()
+
+# Custom args action class for setting NeMO diarization params
+class AddNemoParam(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        namespace.nemo_params[self.dest] = values
+
+
+parser.add_argument(
+    "--num-speakers",
+    type=int,
+    action=AddNemoParam,
+    help="Specify number of speakers in audio. Default is 0 for automatic detection",
+)
+
+parser.add_argument(
+    "--num-workers",
+    type=int,
+    action=AddNemoParam,
+    help="Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores",
+)
+
+parser.add_argument(
+    "--domain-type",
+    type=str,
+    choices=["telephonic", "meeting", "general"],
+    action=AddNemoParam,
+    help="Type of diarization model to use. Options are as follows (default is 'telephonic')"
+    "\n- 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues"
+    "\n- 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues"
+    "\n- 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set",
+)
+
+class ArgNamespace():
+    nemo_params = {}
+
+args = parser.parse_args(namespace=ArgNamespace())
 language = process_language_arg(args.language, args.model_name)
+
 
 # Cuda debug info
 logging.info(f"torch.version.cuda: {torch.version.cuda}")
@@ -192,7 +228,9 @@ torchaudio.save(
 
 
 # Initialize NeMo MSDD diarization model
-msdd_model = NeuralDiarizer(cfg=create_config(temp_path)).to(args.device)
+msdd_model = NeuralDiarizer(cfg=create_config(temp_path, **args.nemo_params)).to(
+    args.device
+)
 msdd_model.diarize()
 
 del msdd_model
