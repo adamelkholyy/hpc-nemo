@@ -92,7 +92,7 @@ parser.add_argument(
 )
 
 
-# Custom args action for setting NeMO diarization params
+# Custom args action class for setting NeMO diarization params
 class AddNemoParam(argparse.Action):
     def __call__(self, parser, namespace, values, option_string=None):
         namespace.nemo_params[self.dest] = values
@@ -101,7 +101,6 @@ class AddNemoParam(argparse.Action):
 parser.add_argument(
     "--num-speakers",
     type=int,
-    dest="num_speakers",
     action=AddNemoParam,
     help="Specify number of speakers in audio. Default is 0 for automatic detection",
 )
@@ -109,7 +108,6 @@ parser.add_argument(
 parser.add_argument(
     "--num-workers",
     type=int,
-    dest="num_workers",
     action=AddNemoParam,
     help="Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores",
 )
@@ -118,7 +116,6 @@ parser.add_argument(
     "--domain-type",
     type=str,
     choices=["telephonic", "meeting", "general"],
-    dest="domain_type",
     action=AddNemoParam,
     help="Type of diarization model to use. Options are as follows (default is 'telephonic')"
     "\n- 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues"
