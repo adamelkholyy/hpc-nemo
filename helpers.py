@@ -1,6 +1,7 @@
 import json
 import os
 import shutil
+import argparse
 
 import nltk
 import wget
@@ -8,6 +9,7 @@ from omegaconf import OmegaConf
 from whisperx.alignment import DEFAULT_ALIGN_MODELS_HF, DEFAULT_ALIGN_MODELS_TORCH
 from whisperx.utils import LANGUAGES, TO_LANGUAGE_CODE
 from typing import Literal
+from torch.cuda import is_available as cuda_is_available
 
 punct_model_langs = [
     "en",
@@ -223,7 +225,7 @@ langs_to_iso = {
 def create_config(
     output_dir: str | os.PathLike,
     num_speakers: int = 0,
-    num_workers: int = 0,
+    num_workers: int = -1,
     domain_type: Literal["telephonic", "meeting", "general"] = "telephonic",
     use_custom_vad_params: bool = False,
 ):
@@ -233,7 +235,7 @@ def create_config(
     Args
         output_dir (str | os.PathLike): Output directory for config file
         num_speakers (int, optional): Number of speakers in audio. Default is 0 for automatic detection. 
-        num_workers (int, optional): Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores.
+        num_workers (int, optional): Number of CPU threads to use for splitting audio. Default is -1 to use max available CPU cores.
         domain_type (Literal["telephonic", "meeting", "general"], optional): Type of diarization model to use. Options are as follows (default is 'telephonic')         
             - 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues
             - 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues
@@ -276,8 +278,9 @@ def create_config(
 
 
     # Set number of CPU threads for audio splitting
-    if not num_workers:
-        config.num_workers = max(1, os.cpu_count() - 1)
+    if num_workers < 0:
+        available_cpu_cores = os.cpu_count() if os.cpu_count() is not None else 0
+        config.num_workers = max(1, available_cpu_cores - 1) # type: ignore 
     else:
         config.num_workers = num_workers
 
@@ -605,3 +608,93 @@ def process_language_arg(language: str, model_name: str):
             )
 
     return language
+
+
+def initialise_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-a", "--audio", help="name of the target audio file", required=True
+    )
+    parser.add_argument(
+        "--no-stem",
+        action="store_false",
+        dest="stemming",
+        default=True,
+        help="Disables source separation."
+        "This helps with long files that don't contain a lot of music.",
+    )
+
+    parser.add_argument(
+        "--suppress_numerals",
+        action="store_true",
+        dest="suppress_numerals",
+        default=False,
+        help="Suppresses Numerical Digits."
+        "This helps the diarization accuracy but converts all digits into written text.",
+    )
+
+    parser.add_argument(
+        "--whisper-model",
+        dest="model_name",
+        default="medium.en",
+        help="name of the Whisper model to use",
+    )
+
+    parser.add_argument(
+        "--batch-size",
+        type=int,
+        dest="batch_size",
+        default=8,
+        help="Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference",
+    )
+
+    parser.add_argument(
+        "--language",
+        type=str,
+        default=None,
+        choices=whisper_langs,
+        help="Language spoken in the audio, specify None to perform language detection",
+    )
+
+    parser.add_argument(
+        "--device",
+        dest="device",
+        default="cuda" if cuda_is_available() else "cpu",
+        help="if you have a GPU use 'cuda', otherwise 'cpu'",
+    )
+
+
+    # Custom args action class for setting NeMO diarization params
+    class AddNemoParam(argparse.Action):
+        def __call__(self, parser, namespace, values, option_string=None):
+            if not hasattr(namespace, "nemo_params"):
+                namespace.nemo_params = {}
+            namespace.nemo_params[self.dest] = values
+
+
+    parser.add_argument(
+        "--num-speakers",
+        type=int,
+        action=AddNemoParam,
+        help="Specify number of speakers in audio. Default is 0 for automatic detection",
+    )
+
+    parser.add_argument(
+        "--num-workers",
+        type=int,
+        action=AddNemoParam,
+        help="Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores",
+    )
+
+    parser.add_argument(
+        "--domain-type",
+        type=str,
+        choices=["telephonic", "meeting", "general"],
+        action=AddNemoParam,
+        help="Type of diarization model to use. Options are as follows (default is 'telephonic')"
+        "\n- 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues"
+        "\n- 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues"
+        "\n- 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set",
+    )
+
+    return parser
