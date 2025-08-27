@@ -221,11 +221,9 @@ langs_to_iso = {
 }
 
 
-
 def create_config(
     output_dir: str | os.PathLike,
     num_speakers: int = 0,
-    num_workers: int = -1,
     domain_type: Literal["telephonic", "meeting", "general"] = "telephonic",
     use_custom_vad_params: bool = False,
 ):
@@ -235,7 +233,6 @@ def create_config(
     Args
         output_dir (str | os.PathLike): Output directory for config file
         num_speakers (int, optional): Number of speakers in audio. Default is 0 for automatic detection. 
-        num_workers (int, optional): Number of CPU threads to use for splitting audio. Default is -1 to use max available CPU cores.
         domain_type (Literal["telephonic", "meeting", "general"], optional): Type of diarization model to use. Options are as follows (default is 'telephonic')         
             - 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues
             - 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues
@@ -277,13 +274,7 @@ def create_config(
         fp.write("\n")
 
 
-    # Set number of CPU threads for audio splitting
-    if num_workers < 0:
-        available_cpu_cores = os.cpu_count() if os.cpu_count() is not None else 0
-        config.num_workers = max(1, available_cpu_cores - 1) # type: ignore 
-    else:
-        config.num_workers = num_workers
-
+    config.num_workers = 0
     config.diarizer.manifest_filepath = os.path.join(data_dir, "input_manifest.json")
     config.diarizer.out_dir = (
         output_dir  # Directory to store intermediate files and prediction outputs
@@ -663,14 +654,12 @@ def initialise_parser() -> argparse.ArgumentParser:
         help="if you have a GPU use 'cuda', otherwise 'cpu'",
     )
 
+    parser.set_defaults(nemo_params={})
 
     # Custom args action class for setting NeMO diarization params
     class AddNemoParam(argparse.Action):
         def __call__(self, parser, namespace, values, option_string=None):
-            if not hasattr(namespace, "nemo_params"):
-                namespace.nemo_params = {}
             namespace.nemo_params[self.dest] = values
-
 
     parser.add_argument(
         "--num-speakers",
@@ -680,15 +669,7 @@ def initialise_parser() -> argparse.ArgumentParser:
     )
 
     parser.add_argument(
-        "--num-workers",
-        type=int,
-        action=AddNemoParam,
-        help="Number of CPU threads to use for splitting audio. Default is 0 for optimising based on number of CPU cores",
-    )
-
-    parser.add_argument(
         "--domain-type",
-        type=str,
         choices=["telephonic", "meeting", "general"],
         action=AddNemoParam,
         help="Type of diarization model to use. Options are as follows (default is 'telephonic')"

@@ -1,4 +1,3 @@
-import argparse
 import logging
 import os
 import re
@@ -21,6 +20,7 @@ from helpers import (
     get_sentences_speaker_mapping,
     get_speaker_aware_transcript,
     get_words_speaker_mapping,
+    initialise_parser,
     langs_to_iso,
     process_language_arg,
     punct_model_langs,
@@ -31,59 +31,7 @@ from transcription_helpers import transcribe_batched
 
 mtypes = {"cpu": "int8", "cuda": "float16"}
 
-# Initialize parser
-parser = argparse.ArgumentParser()
-parser.add_argument(
-    "-a", "--audio", help="name of the target audio file", required=True
-)
-parser.add_argument(
-    "--no-stem",
-    action="store_false",
-    dest="stemming",
-    default=True,
-    help="Disables source separation."
-    "This helps with long files that don't contain a lot of music.",
-)
-
-parser.add_argument(
-    "--suppress_numerals",
-    action="store_true",
-    dest="suppress_numerals",
-    default=False,
-    help="Suppresses Numerical Digits."
-    "This helps the diarization accuracy but converts all digits into written text.",
-)
-
-parser.add_argument(
-    "--whisper-model",
-    dest="model_name",
-    default="medium.en",
-    help="name of the Whisper model to use",
-)
-
-parser.add_argument(
-    "--batch-size",
-    type=int,
-    dest="batch_size",
-    default=8,
-    help="Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference",
-)
-
-parser.add_argument(
-    "--language",
-    type=str,
-    default=None,
-    choices=whisper_langs,
-    help="Language spoken in the audio, specify None to perform language detection",
-)
-
-parser.add_argument(
-    "--device",
-    dest="device",
-    default="cuda" if torch.cuda.is_available() else "cpu",
-    help="if you have a GPU use 'cuda', otherwise 'cpu'",
-)
-
+parser = initialise_parser()
 args = parser.parse_args()
 language = process_language_arg(args.language, args.model_name)
 
@@ -111,10 +59,12 @@ else:
     vocal_target = args.audio
 
 logging.info("Starting Nemo process with vocal_target: ", vocal_target)
-nemo_process = subprocess.Popen(
-    ["python3", "nemo_process.py", "-a", vocal_target, "--device", args.device],
-    stderr=subprocess.PIPE,
-)
+
+# Start NeMo process in parallel
+nemo_process = subprocess.Popen(["python3", "nemo_process.py", "-a", vocal_target,
+                                "--device", args.device, "--nemo-params", str(args.nemo_params)], 
+                                stderr=subprocess.PIPE)
+
 # Transcribe the audio file
 whisper_results, language, audio_waveform = transcribe_batched(
     vocal_target,

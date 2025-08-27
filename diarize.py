@@ -1,12 +1,11 @@
-import argparse
 import logging
 import os
 import re
 
 import torch
 # ReproducabilityWarning fix
-torch.backends.cuda.matmul.allow_tf32 = True
-torch.backends.cudnn.allow_tf32 = True
+# torch.backends.cuda.matmul.allow_tf32 = True
+# torch.backends.cudnn.allow_tf32 = True
 
 import torchaudio
 from ctc_forced_aligner import (
@@ -49,7 +48,7 @@ logging.info(f"torch.version.cuda: {torch.version.cuda}")
 logging.info(f"torch.cuda.is_available(): {torch.cuda.is_available()}")
 
 if torch.cuda.is_available():
-    logging.info(f"using: cuda")
+    logging.info("using: cuda")
     logging.info(f"device count: {torch.cuda.device_count()}")
     for i in range(torch.cuda.device_count()):
         logging.info(f"device {i}: {torch.cuda.get_device_name(i)}")

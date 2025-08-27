@@ -1,87 +1,84 @@
 import os
 import subprocess
-import argparse
 import time
+import logging
+
+from helpers import initialise_parser
 
 
-# format estimated finish time into HH:MM:SS
+# Format a time in seconds into hours, mins and seconds
 def format_time(seconds):
-    total_hours, remainder = divmod(seconds, 3600)
-    minutes, secs = divmod(remainder, 60)
-    return f"{int(total_hours):02}:{int(minutes):02}:{int(secs):02}"
+    hours, remainder = divmod(seconds, 3600)
+    mins, secs = divmod(remainder, 60)
+    return int(hours), int(mins), int(secs)
 
 
-# initialize parser
-parser = argparse.ArgumentParser()
+parser = initialise_parser()
 parser.add_argument(
-    "-f", "--folder", help="name of the target audio folder", required=True
+    "-f",
+    "--folder",
+    help="name of the folder conatining files to transcribe and diarize",
+    required=True,
 )
 
 parser.add_argument(
-    "--whisper-model",
-    dest="model_name",
-    default="large-v3",
-    help="name of the Whisper model to use",
-)
-
-parser.add_argument(
-    "--batch-size",
-    type=int,
-    dest="batch_size",
-    default=8,
-    help="Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference",
-)
-
-parser.add_argument(
-    "--language",
-    type=str,
-    default="en",
-    help="Language spoken in the audio, specify None to perform language detection",
+    "--no-parallel",
+    dest="no_parallel",
+    action=store_true,
+    help="turn off parallel transcription and diarization",
 )
 
 args = parser.parse_args()
 
-# get audio file paths
-audio_folder = args.folder
+# Generate command from args
+command = [
+    "python",
+    "diarize.py" if args.no_parallel else "diarize_parallel.py", 
+    "--whisper-model", args.model_name,
+    "--language", args.language,
+    "--batch-size", args.batch_size,
+]
 
-# separate untranscribed files
-processed_files = [f[:-4] for f in os.listdir("/lustre/projects/Research_Project-T116269/cobalt-text-txt")]
-unprocessed_files = [f for f in os.listdir(audio_folder) if f.lower().endswith(".mp3") and f[:-4] not in processed_files]
-total_processed_files = len(processed_files)
-total_unprocessed_files = len(unprocessed_files)
+if not args.stemming:
+    command.append("--no-stem")
+if args.surpress_numerals:
+    command.append("--surpress-numerals")
 
-print(f"Transcribing and diarizing {total_unprocessed_files} audio files in {audio_folder}...")
+# Add NeMo parameters to command accordingly
+for argname, nemo_param in args.nemo_params.items():
+    command += [f"--{argname}", nemo_param]
+
+command = list(map(str, command))
 
 
-file_counter = 1
-total_time = 100
-for file in unprocessed_files:
-    # calculate ETA using rolling average time
-    average_time = total_time / file_counter
-    eta_seconds = average_time * (total_unprocessed_files - file_counter)
-    eta_formatted = format_time(eta_seconds)
-    print(f"Transcribing and diarizing {file}...")
+cwd = os.getcwd()
+audio_folder = os.path.join(cwd, args.folder)
+audio_files = [
+    f
+    for f in os.listdir(audio_folder)
+    if f.lower().endswith(".mp3") or f.lower().endswith(".wav")
+]
+num_files = len(audio_files)
 
-    # transcribe and diarize file
-    file_path = os.path.join(audio_folder, file)
-    command = f"python diarize_parallel.py -a {file_path} --no-stem --suppress_numerals --whisper-model {args.model_name} --language {args.language} --batch-size {args.batch_size}"
-    start = time.time()
-    subprocess.run(command, shell=True)
-    end = time.time() - start
+logging.info(f"Found {num_files} files in {audio_folder} to transcribe and diarize")
 
-    # append timing info to logfile
-    with open("diarize_log.txt", "a", encoding="utf-8") as f:
-        f.write(
-            f"{file_counter + total_processed_files}\t" + 
-            f"{file}\t" + 
-            f"{end:.2f}s\t" + 
-            f"{((file_counter / total_unprocessed_files) * 100):.2f}%" + 
-            f"\t{eta_formatted}" + 
-            "\n"
-        )
 
-    print(f"Transcribed and diarized {file} in {end:.2f}s")
-    file_counter += 1
-    total_time += end
+# Process each audio file
+total_time = 0
+for i, file in enumerate(audio_files):
+    logging.info(f" ({i+1}/{num_files}) Transcribing and diarizing {file}")
+    filepath = os.path.join(audio_folder, file)
 
-print(f"Successfully transcribed and diarized {file_counter} audio files in {audio_folder}.")
+    start_time = time.time()
+    subprocess.run(command + ["-a", filepath])
+    time_taken = time.time() - start_time
+
+    total_time += time_taken
+    hrs, mins, secs = format_time(time_taken)
+    logging.info(f"Transcription and diarization complete in {mins}m {secs}s")
+
+
+total_hrs, total_mins, total_secs = format_time(total_time)
+logging.info(
+    f"Successfully transcribed and diarized {len(audio_files)} audio files in {audio_folder} in {total_hrs}h {total_mins}m {total_secs}s"
+)
