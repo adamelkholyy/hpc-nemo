@@ -1,15 +1,7 @@
-import json
 import os
 import shutil
-import argparse
 
 import nltk
-import wget
-from omegaconf import OmegaConf
-from whisperx.alignment import DEFAULT_ALIGN_MODELS_HF, DEFAULT_ALIGN_MODELS_TORCH
-from whisperx.utils import LANGUAGES, TO_LANGUAGE_CODE
-from typing import Literal
-from torch.cuda import is_available as cuda_is_available
 
 punct_model_langs = [
     "en",
@@ -25,117 +17,184 @@ punct_model_langs = [
     "sk",
     "sl",
 ]
-wav2vec2_langs = list(DEFAULT_ALIGN_MODELS_TORCH.keys()) + list(
-    DEFAULT_ALIGN_MODELS_HF.keys()
-)
+
+LANGUAGES = {
+    "en": "english",
+    "zh": "chinese",
+    "de": "german",
+    "es": "spanish",
+    "ru": "russian",
+    "ko": "korean",
+    "fr": "french",
+    "ja": "japanese",
+    "pt": "portuguese",
+    "tr": "turkish",
+    "pl": "polish",
+    "ca": "catalan",
+    "nl": "dutch",
+    "ar": "arabic",
+    "sv": "swedish",
+    "it": "italian",
+    "id": "indonesian",
+    "hi": "hindi",
+    "fi": "finnish",
+    "vi": "vietnamese",
+    "he": "hebrew",
+    "uk": "ukrainian",
+    "el": "greek",
+    "ms": "malay",
+    "cs": "czech",
+    "ro": "romanian",
+    "da": "danish",
+    "hu": "hungarian",
+    "ta": "tamil",
+    "no": "norwegian",
+    "th": "thai",
+    "ur": "urdu",
+    "hr": "croatian",
+    "bg": "bulgarian",
+    "lt": "lithuanian",
+    "la": "latin",
+    "mi": "maori",
+    "ml": "malayalam",
+    "cy": "welsh",
+    "sk": "slovak",
+    "te": "telugu",
+    "fa": "persian",
+    "lv": "latvian",
+    "bn": "bengali",
+    "sr": "serbian",
+    "az": "azerbaijani",
+    "sl": "slovenian",
+    "kn": "kannada",
+    "et": "estonian",
+    "mk": "macedonian",
+    "br": "breton",
+    "eu": "basque",
+    "is": "icelandic",
+    "hy": "armenian",
+    "ne": "nepali",
+    "mn": "mongolian",
+    "bs": "bosnian",
+    "kk": "kazakh",
+    "sq": "albanian",
+    "sw": "swahili",
+    "gl": "galician",
+    "mr": "marathi",
+    "pa": "punjabi",
+    "si": "sinhala",
+    "km": "khmer",
+    "sn": "shona",
+    "yo": "yoruba",
+    "so": "somali",
+    "af": "afrikaans",
+    "oc": "occitan",
+    "ka": "georgian",
+    "be": "belarusian",
+    "tg": "tajik",
+    "sd": "sindhi",
+    "gu": "gujarati",
+    "am": "amharic",
+    "yi": "yiddish",
+    "lo": "lao",
+    "uz": "uzbek",
+    "fo": "faroese",
+    "ht": "haitian creole",
+    "ps": "pashto",
+    "tk": "turkmen",
+    "nn": "nynorsk",
+    "mt": "maltese",
+    "sa": "sanskrit",
+    "lb": "luxembourgish",
+    "my": "myanmar",
+    "bo": "tibetan",
+    "tl": "tagalog",
+    "mg": "malagasy",
+    "as": "assamese",
+    "tt": "tatar",
+    "haw": "hawaiian",
+    "ln": "lingala",
+    "ha": "hausa",
+    "ba": "bashkir",
+    "jw": "javanese",
+    "su": "sundanese",
+    "yue": "cantonese",
+}
+
+# language code lookup by name, with a few language aliases
+TO_LANGUAGE_CODE = {
+    **{language: code for code, language in LANGUAGES.items()},
+    "burmese": "my",
+    "valencian": "ca",
+    "flemish": "nl",
+    "haitian": "ht",
+    "letzeburgesch": "lb",
+    "pushto": "ps",
+    "panjabi": "pa",
+    "moldavian": "ro",
+    "moldovan": "ro",
+    "sinhalese": "si",
+    "castilian": "es",
+}
 
 whisper_langs = sorted(LANGUAGES.keys()) + sorted(
     [k.title() for k in TO_LANGUAGE_CODE.keys()]
 )
 
 langs_to_iso = {
-    "aa": "aar",
-    "ab": "abk",
-    "ae": "ave",
     "af": "afr",
-    "ak": "aka",
     "am": "amh",
-    "an": "arg",
     "ar": "ara",
     "as": "asm",
-    "av": "ava",
-    "ay": "aym",
     "az": "aze",
     "ba": "bak",
     "be": "bel",
     "bg": "bul",
-    "bh": "bih",
-    "bi": "bis",
-    "bm": "bam",
     "bn": "ben",
     "bo": "tib",
     "br": "bre",
     "bs": "bos",
     "ca": "cat",
-    "ce": "che",
-    "ch": "cha",
-    "co": "cos",
-    "cr": "cre",
     "cs": "cze",
-    "cu": "chu",
-    "cv": "chv",
     "cy": "wel",
     "da": "dan",
     "de": "ger",
-    "dv": "div",
-    "dz": "dzo",
-    "ee": "ewe",
     "el": "gre",
     "en": "eng",
-    "eo": "epo",
     "es": "spa",
     "et": "est",
     "eu": "baq",
     "fa": "per",
-    "ff": "ful",
     "fi": "fin",
-    "fj": "fij",
     "fo": "fao",
     "fr": "fre",
-    "fy": "fry",
-    "ga": "gle",
-    "gd": "gla",
     "gl": "glg",
-    "gn": "grn",
     "gu": "guj",
-    "gv": "glv",
     "ha": "hau",
+    "haw": "haw",
     "he": "heb",
     "hi": "hin",
-    "ho": "hmo",
     "hr": "hrv",
     "ht": "hat",
     "hu": "hun",
     "hy": "arm",
-    "hz": "her",
-    "ia": "ina",
     "id": "ind",
-    "ie": "ile",
-    "ig": "ibo",
-    "ii": "iii",
-    "ik": "ipk",
-    "io": "ido",
     "is": "ice",
     "it": "ita",
-    "iu": "iku",
     "ja": "jpn",
-    "jv": "jav",
+    "jw": "jav",
     "ka": "geo",
-    "kg": "kon",
-    "ki": "kik",
-    "kj": "kua",
     "kk": "kaz",
-    "kl": "kal",
     "km": "khm",
     "kn": "kan",
     "ko": "kor",
-    "kr": "kau",
-    "ks": "kas",
-    "ku": "kur",
-    "kv": "kom",
-    "kw": "cor",
-    "ky": "kir",
     "la": "lat",
     "lb": "ltz",
-    "lg": "lug",
-    "li": "lim",
     "ln": "lin",
     "lo": "lao",
     "lt": "lit",
-    "lu": "lub",
     "lv": "lav",
     "mg": "mlg",
-    "mh": "mah",
     "mi": "mao",
     "mk": "mac",
     "ml": "mal",
@@ -144,48 +203,26 @@ langs_to_iso = {
     "ms": "may",
     "mt": "mlt",
     "my": "bur",
-    "na": "nau",
-    "nb": "nob",
-    "nd": "nde",
     "ne": "nep",
-    "ng": "ndo",
     "nl": "dut",
     "nn": "nno",
     "no": "nor",
-    "nr": "nbl",
-    "nv": "nav",
-    "ny": "nya",
     "oc": "oci",
-    "oj": "oji",
-    "om": "orm",
-    "or": "ori",
-    "os": "oss",
     "pa": "pan",
-    "pi": "pli",
     "pl": "pol",
     "ps": "pus",
     "pt": "por",
-    "qu": "que",
-    "rm": "roh",
-    "rn": "run",
     "ro": "rum",
     "ru": "rus",
-    "rw": "kin",
     "sa": "san",
-    "sc": "srd",
     "sd": "snd",
-    "se": "sme",
-    "sg": "sag",
     "si": "sin",
     "sk": "slo",
     "sl": "slv",
-    "sm": "smo",
     "sn": "sna",
     "so": "som",
     "sq": "alb",
     "sr": "srp",
-    "ss": "ssw",
-    "st": "sot",
     "su": "sun",
     "sv": "swe",
     "sw": "swa",
@@ -193,106 +230,19 @@ langs_to_iso = {
     "te": "tel",
     "tg": "tgk",
     "th": "tha",
-    "ti": "tir",
     "tk": "tuk",
     "tl": "tgl",
-    "tn": "tsn",
-    "to": "ton",
     "tr": "tur",
-    "ts": "tso",
     "tt": "tat",
-    "tw": "twi",
-    "ty": "tah",
-    "ug": "uig",
     "uk": "ukr",
     "ur": "urd",
     "uz": "uzb",
-    "ve": "ven",
     "vi": "vie",
-    "vo": "vol",
-    "wa": "wln",
-    "wo": "wol",
-    "xh": "xho",
     "yi": "yid",
     "yo": "yor",
-    "za": "zha",
+    "yue": "yue",
     "zh": "chi",
-    "zu": "zul",
 }
-
-
-def create_config(
-    output_dir: str | os.PathLike,
-    num_speakers: int = 0,
-    domain_type: Literal["telephonic", "meeting", "general"] = "telephonic",
-    use_custom_vad_params: bool = False,
-):
-    """
-    Create config for NeMo diarization model
-
-    Args
-        output_dir (str | os.PathLike): Output directory for config file
-        num_speakers (int, optional): Number of speakers in audio. Default is 0 for automatic detection. 
-        domain_type (Literal["telephonic", "meeting", "general"], optional): Type of diarization model to use. Options are as follows (default is 'telephonic')         
-            - 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues
-            - 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues
-            - 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set
-        use_custom_vad_params (bool, optional): Toggle to use custom VAD parameters defined by @MahmoudAshraf97 for NeMo with Whisper. Default is False to use the existing pre-tuned NeMo params 
-
-    Returns
-        config (DictConfig | ListConfig): Config for NeMo diarization model
-    """
-
-    CONFIG_LOCAL_DIRECTORY = "nemo_msdd_configs"
-    CONFIG_FILE_NAME = f"diar_infer_{domain_type}.yaml"
-    MODEL_CONFIG_PATH = os.path.join(CONFIG_LOCAL_DIRECTORY, CONFIG_FILE_NAME)
-    if not os.path.exists(MODEL_CONFIG_PATH):
-        os.makedirs(CONFIG_LOCAL_DIRECTORY, exist_ok=True)
-        CONFIG_URL = f"https://raw.githubusercontent.com/NVIDIA/NeMo/main/examples/speaker_tasks/diarization/conf/inference/{CONFIG_FILE_NAME}"
-        MODEL_CONFIG_PATH = wget.download(CONFIG_URL, MODEL_CONFIG_PATH)
-
-    config = OmegaConf.load(MODEL_CONFIG_PATH)
-
-    data_dir = os.path.join(output_dir, "data")
-    os.makedirs(data_dir, exist_ok=True)
-
-    meta = {
-        "audio_filepath": os.path.join(output_dir, "mono_file.wav"),
-        "offset": 0,
-        "duration": None,
-        "label": "infer",
-        "text": "-",
-        "rttm_filepath": None,
-        "uem_filepath": None,
-    }
-
-    if num_speakers:
-        meta["num_speakers"] = num_speakers
-
-    with open(os.path.join(data_dir, "input_manifest.json"), "w") as fp:
-        json.dump(meta, fp)
-        fp.write("\n")
-
-
-    config.num_workers = 0
-    config.diarizer.manifest_filepath = os.path.join(data_dir, "input_manifest.json")
-    config.diarizer.out_dir = (
-        output_dir  # Directory to store intermediate files and prediction outputs
-    )
-    config.diarizer.oracle_vad = (
-        False  # compute VAD provided with model_path to vad config
-    )
-    config.diarizer.clustering.parameters.oracle_num_speakers = (
-        True if num_speakers else False # Fix num_speakers if pre-defined else infer
-    )
-
-    # @MahmoudAshraf97: Here, we use our in-house pretrained NeMo VAD model
-    if use_custom_vad_params:
-        config.diarizer.vad.parameters.onset = 0.8
-        config.diarizer.vad.parameters.offset = 0.6
-        config.diarizer.vad.parameters.pad_offset = -0.05
-
-    return config
 
 
 def get_word_ts_anchor(s, e, option="start"):
@@ -469,24 +419,15 @@ def get_speaker_aware_transcript(sentences_speaker_mapping, f):
         f.write(sentence + " ")
 
 
-def format_timestamp(
-    milliseconds: float, always_include_hours: bool = False, decimal_marker: str = "."
-):
-    assert milliseconds >= 0, "non-negative timestamp expected"
+def format_timestamp(seconds: float):
+    assert seconds >= 0, "non-negative timestamp expected"
+    seconds = int(seconds)
 
-    hours = milliseconds // 3_600_000
-    milliseconds -= hours * 3_600_000
+    hours, remainder = divmod(seconds, 3600)
+    mins, secs = divmod(remainder, 60)
 
-    minutes = milliseconds // 60_000
-    milliseconds -= minutes * 60_000
-
-    seconds = milliseconds // 1_000
-    milliseconds -= seconds * 1_000
-
-    hours_marker = f"{hours:02d}:" if always_include_hours or hours > 0 else ""
-    return (
-        f"{hours_marker}{minutes:02d}:{seconds:02d}{decimal_marker}{milliseconds:03d}"
-    )
+    hours_marker = f"{hours}h " if hours > 0 else ""
+    return f"{hours_marker}{mins}m {secs}s"
 
 
 def write_srt(transcript, file):
@@ -498,8 +439,8 @@ def write_srt(transcript, file):
         # write srt lines
         print(
             f"{i}\n"
-            f"{format_timestamp(segment['start_time'], always_include_hours=True, decimal_marker=',')} --> "
-            f"{format_timestamp(segment['end_time'], always_include_hours=True, decimal_marker=',')}\n"
+            f"{format_timestamp(segment['start_time'])} --> "
+            f"{format_timestamp(segment['end_time'])}\n"
             f"{segment['speaker']}: {segment['text'].strip().replace('-->', '->')}\n",
             file=file,
             flush=True,
@@ -578,12 +519,13 @@ def cleanup(path: str):
         # remove directory and all its content
         shutil.rmtree(path)
     else:
-        raise ValueError("Path {} is not a file or dir.".format(path))
+        raise ValueError(f"Path {path} is not a file or dir.")
 
 
 def process_language_arg(language: str, model_name: str):
     """
-    Process the language argument to make sure it's valid and convert language names to language codes.
+    Process the language argument to make sure it's valid
+    and convert language names to language codes.
     """
     if language is not None:
         language = language.lower()
@@ -599,83 +541,3 @@ def process_language_arg(language: str, model_name: str):
             )
 
     return language
-
-
-def initialise_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser()
-    parser.add_argument(
-        "-a", "--audio", help="name of the target audio file", required=True
-    )
-    parser.add_argument(
-        "--no-stem",
-        action="store_false",
-        dest="stemming",
-        default=True,
-        help="Disables source separation."
-        "This helps with long files that don't contain a lot of music.",
-    )
-
-    parser.add_argument(
-        "--suppress_numerals",
-        action="store_true",
-        dest="suppress_numerals",
-        default=False,
-        help="Suppresses Numerical Digits."
-        "This helps the diarization accuracy but converts all digits into written text.",
-    )
-
-    parser.add_argument(
-        "--whisper-model",
-        dest="model_name",
-        default="medium.en",
-        help="name of the Whisper model to use",
-    )
-
-    parser.add_argument(
-        "--batch-size",
-        type=int,
-        dest="batch_size",
-        default=8,
-        help="Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference",
-    )
-
-    parser.add_argument(
-        "--language",
-        type=str,
-        default=None,
-        choices=whisper_langs,
-        help="Language spoken in the audio, specify None to perform language detection",
-    )
-
-    parser.add_argument(
-        "--device",
-        dest="device",
-        default="cuda" if cuda_is_available() else "cpu",
-        help="if you have a GPU use 'cuda', otherwise 'cpu'",
-    )
-
-    parser.set_defaults(nemo_params={})
-
-    # Custom args action class for setting NeMO diarization params
-    class AddNemoParam(argparse.Action):
-        def __call__(self, parser, namespace, values, option_string=None):
-            namespace.nemo_params[self.dest] = values
-
-    parser.add_argument(
-        "--num-speakers",
-        type=int,
-        action=AddNemoParam,
-        help="Specify number of speakers in audio. Default is 0 for automatic detection",
-    )
-
-    parser.add_argument(
-        "--domain-type",
-        choices=["telephonic", "meeting", "general"],
-        action=AddNemoParam,
-        help="Type of diarization model to use. Options are as follows (default is 'telephonic')"
-        "\n- 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues"
-        "\n- 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues"
-        "\n- 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set",
-    )
-
-    return parser

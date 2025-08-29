@@ -1,7 +1,7 @@
 [project]
 name = "nemo"
 version = "0.1.0"
-description = "Transcription and diarization toolkit using Whisper and NeMo on Exeter's ISCA server"
+description = "Transcription and diarization toolkit using Whisper and NeMo. Originally written for use on Exeter's ISCA server, however it can now be built on any platform."
 authors = [
     {name = "Adam El Kholy"}
 ]
@@ -245,5 +245,7 @@ dependencies = [
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+
 [tool.poetry]
 package-mode = false

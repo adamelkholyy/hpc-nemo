@@ -1,5 +1,5 @@
-.git/
-__pycache__/
 .venv/
-temp_outputs/
+.git/
+__pycache__*/
+temp_outputs*/
 logs/

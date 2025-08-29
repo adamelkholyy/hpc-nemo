@@ -1,206 +1,132 @@
+import argparse
 import logging
 import os
-import re
+import time
 
-import torch
-# ReproducabilityWarning fix
-# torch.backends.cuda.matmul.allow_tf32 = True
-# torch.backends.cudnn.allow_tf32 = True
+from DiarizePipeline import DiarizePipeline
+from helpers import format_timestamp, whisper_langs
+from torch.cuda import is_available
 
-import torchaudio
-from ctc_forced_aligner import (
-    generate_emissions,
-    get_alignments,
-    get_spans,
-    load_alignment_model,
-    postprocess_results,
-    preprocess_text,
+# TODO: Add softformer once merged from whisper-diarization
+
+parser = argparse.ArgumentParser()
+parser.add_argument(
+    "-a", "--audio", help="name of the target audio file", required=True
 )
-from deepmultilingualpunctuation import PunctuationModel
-from nemo.collections.asr.models.msdd_models import NeuralDiarizer
-
-from helpers import (
-    cleanup,
-    create_config,
-    get_realigned_ws_mapping_with_punctuation,
-    get_sentences_speaker_mapping,
-    get_speaker_aware_transcript,
-    get_words_speaker_mapping,
-    initialise_parser,
-    langs_to_iso,
-    process_language_arg,
-    punct_model_langs,
-    whisper_langs,
-    write_srt,
+parser.add_argument(
+    "--no-stem",
+    action="store_false",
+    dest="stemming",
+    default=True,
+    help="Disables source separation."
+    "This helps with long files that don't contain a lot of music.",
 )
-from transcription_helpers import transcribe_batched
+
+parser.add_argument(
+    "--suppress_numerals",
+    action="store_true",
+    dest="suppress_numerals",
+    default=False,
+    help="Suppresses Numerical Digits."
+    "This helps the diarization accuracy but converts all digits into written text.",
+)
+
+parser.add_argument(
+    "--whisper-model",
+    dest="model_name",
+    default="large-v3",
+    help="Select which Whisper model to use",
+)
+
+parser.add_argument(
+    "--batch-size",
+    type=int,
+    dest="batch_size",
+    default=8,
+    help="Batch size for batched inference, reduce if you run out of memory, set to 0 for non-batched inference",
+)
+
+parser.add_argument(
+    "--language",
+    type=str,
+    default=None,
+    choices=whisper_langs,
+    help="Language spoken in the audio, specify None to perform language detection",
+)
+
+parser.add_argument(
+    "--device",
+    dest="device",
+    default="cuda" if is_available() else "cpu",
+    help="If you have a GPU use 'cuda', otherwise 'cpu'. Leave blank for automatic detection.",
+)
+
+parser.add_argument(
+    "--parallel",
+    action="store_true",
+    dest="parallel",
+    default=False,
+    help="Enable parallel NeMo diarization during Whisper transcription",
+)
+
+parser.set_defaults(nemo_params={})
+
+# Custom args action class for setting NeMO diarization params
+class AddNemoParam(argparse.Action):
+    def __call__(self, parser, namespace, values, option_string=None):
+        namespace.nemo_params[self.dest] = values
 
 
-mtypes = {"cpu": "int8", "cuda": "float16"}
+parser.add_argument(
+    "--num-speakers",
+    type=int,
+    action=AddNemoParam,
+    help="Specify number of speakers in audio. Default is 0 for automatic detection",
+)
 
-parser = initialise_parser()
+parser.add_argument(
+    "--domain-type",
+    choices=["telephonic", "meeting", "general"],
+    action=AddNemoParam,
+    help="Type of diarization model to use. Options are as follows (default is 'telephonic')"
+    "\n- 'telephonic': Suitable for telephone recordings involving 2-8 speakers in a session and may not show the best performance on the other types of acoustic conditions or dialogues"
+    "\n- 'meeting': Suitable for 3-5 speakers participating in a meeting and may not show the best performance on other types of dialogues"
+    "\n- 'general': Optimized to show balanced performances on various types of domain. VAD is optimized on multilingual ASR datasets and diarizer is optimized on DIHARD3 development set",
+)
+
 args = parser.parse_args()
-language = process_language_arg(args.language, args.model_name)
+
+# Process args and NeMo params
+diarize_args = {k: v for k, v in args.__dict__.items() if v is not None}
+audio = diarize_args.pop("audio")
+nemo_params = diarize_args.pop("nemo_params")
+
+pipeline = DiarizePipeline(**diarize_args, **nemo_params)
 
 
-# Cuda debug info
-logging.info(f"torch.version.cuda: {torch.version.cuda}")
-logging.info(f"torch.cuda.is_available(): {torch.cuda.is_available()}")
+# Run diarization pipeline for audio dir or file
+if os.path.isdir(audio):
+    audio_files = [
+        f for f in os.listdir(audio) if f.endswith(".mp3") or f.endswith(".wav")
+    ]
+    num_files = len(audio_files)
 
-if torch.cuda.is_available():
-    logging.info("using: cuda")
-    logging.info(f"device count: {torch.cuda.device_count()}")
-    for i in range(torch.cuda.device_count()):
-        logging.info(f"device {i}: {torch.cuda.get_device_name(i)}")
-else:
-    logging.info(f"Cuda unavailable... using {args.device}")
+    assert num_files > 0, f"No .mp3 or .wav files found in {audio}"
+    logging.info(f"Found {num_files} audio files to diarize in {audio}")
 
+    start_time = time.time()
+    for i, file in enumerate(audio_files):
+        logging.info(f"Diarizing {file} ({i+1}/{num_files})")
+        pipeline.run(file)
 
-if args.stemming:
-    # Isolate vocals from the rest of the audio
-
-    return_code = os.system(
-        f'python3 -m demucs.separate -n htdemucs --two-stems=vocals "{args.audio}" -o "temp_outputs"'
+    end_time = time.time() - start_time
+    logging.info(
+        f"Successfully diarized {num_files} files in {format_timestamp(end_time)}"
     )
 
-    if return_code != 0:
-        logging.warning(
-            "Source splitting failed, using original audio file. Use --no-stem argument to disable it."
-        )
-        vocal_target = args.audio
-    else:
-        vocal_target = os.path.join(
-            "temp_outputs",
-            "htdemucs",
-            os.path.splitext(os.path.basename(args.audio))[0],
-            "vocals.wav",
-        )
+elif audio.endswith(".wav") or audio.endswith(".mp3"):
+    pipeline.run(audio)
 else:
-    vocal_target = args.audio
-
-
-# Transcribe the audio file
-
-whisper_results, language, audio_waveform = transcribe_batched(
-    vocal_target,
-    language,
-    args.batch_size,
-    args.model_name,
-    mtypes[args.device],
-    args.suppress_numerals,
-    args.device,
-)
-
-# Forced Alignment
-alignment_model, alignment_tokenizer = load_alignment_model(
-    args.device,
-    dtype=torch.float16 if args.device == "cuda" else torch.float32,
-)
-
-audio_waveform = (
-    torch.from_numpy(audio_waveform)
-    .to(alignment_model.dtype)
-    .to(alignment_model.device)
-)
-emissions, stride = generate_emissions(
-    alignment_model, audio_waveform, batch_size=args.batch_size
-)
-
-del alignment_model
-torch.cuda.empty_cache()
-
-full_transcript = "".join(segment["text"] for segment in whisper_results)
-
-tokens_starred, text_starred = preprocess_text(
-    full_transcript,
-    romanize=True,
-    language=langs_to_iso[language],
-)
-
-segments, scores, blank_token = get_alignments(
-    emissions,
-    tokens_starred,
-    alignment_tokenizer,
-)
-
-spans = get_spans(tokens_starred, segments, blank_token)
-
-word_timestamps = postprocess_results(text_starred, spans, stride, scores)
-
-
-# convert audio to mono for NeMo combatibility
-ROOT = os.getcwd()
-temp_path = os.path.join(ROOT, "temp_outputs")
-os.makedirs(temp_path, exist_ok=True)
-torchaudio.save(
-    os.path.join(temp_path, "mono_file.wav"),
-    audio_waveform.cpu().unsqueeze(0).float(),
-    16000,
-    channels_first=True,
-)
-
-
-# Initialize NeMo MSDD diarization model
-msdd_model = NeuralDiarizer(cfg=create_config(temp_path, **args.nemo_params)).to(
-    args.device
-)
-msdd_model.diarize()
-
-del msdd_model
-torch.cuda.empty_cache()
-
-# Reading timestamps <> Speaker Labels mapping
-
-
-speaker_ts = []
-with open(os.path.join(temp_path, "pred_rttms", "mono_file.rttm"), "r") as f:
-    lines = f.readlines()
-    for line in lines:
-        line_list = line.split(" ")
-        s = int(float(line_list[5]) * 1000)
-        e = s + int(float(line_list[8]) * 1000)
-        speaker_ts.append([s, e, int(line_list[11].split("_")[-1])])
-
-wsm = get_words_speaker_mapping(word_timestamps, speaker_ts, "start")
-
-if language in punct_model_langs:
-    # restoring punctuation in the transcript to help realign the sentences
-    punct_model = PunctuationModel(model="kredor/punctuate-all")
-
-    words_list = list(map(lambda x: x["word"], wsm))
-
-    labled_words = punct_model.predict(words_list, chunk_size=230)
-
-    ending_puncts = ".?!"
-    model_puncts = ".,;:!?"
-
-    # We don't want to punctuate U.S.A. with a period. Right?
-    is_acronym = lambda x: re.fullmatch(r"\b(?:[a-zA-Z]\.){2,}", x)
-
-    for word_dict, labeled_tuple in zip(wsm, labled_words):
-        word = word_dict["word"]
-        if (
-            word
-            and labeled_tuple[1] in ending_puncts
-            and (word[-1] not in model_puncts or is_acronym(word))
-        ):
-            word += labeled_tuple[1]
-            if word.endswith(".."):
-                word = word.rstrip(".")
-            word_dict["word"] = word
-
-else:
-    logging.warning(
-        f"Punctuation restoration is not available for {language} language. Using the original punctuation."
+    raise ValueError(
+        f"Invalid --audio argument '{audio}' : must be either a directory containing .mp3/.wav files or a .mp3/.wav file"
     )
-
-wsm = get_realigned_ws_mapping_with_punctuation(wsm)
-ssm = get_sentences_speaker_mapping(wsm, speaker_ts)
-
-with open(f"{os.path.splitext(args.audio)[0]}.txt", "w", encoding="utf-8-sig") as f:
-    get_speaker_aware_transcript(ssm, f)
-
-with open(f"{os.path.splitext(args.audio)[0]}.srt", "w", encoding="utf-8-sig") as srt:
-    write_srt(ssm, srt)
-
-cleanup(temp_path)
